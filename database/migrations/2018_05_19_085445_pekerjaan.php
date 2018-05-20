@@ -17,6 +17,8 @@ class Pekerjaan extends Migration
         Schema::create('pekerjaan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('pekerjaan');
+            $table->unsignedInteger('site_id');
+            $table->foreign('site_id')->references('id')->on('site')->onDelete('cascade');
             $table->unsignedInteger('project_id');
             $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
         });

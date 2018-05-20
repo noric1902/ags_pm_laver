@@ -48,7 +48,7 @@ class Pengajuan extends Migration
             $table->bigInteger('nominal_corr'); // corrmo
             $table->char('no_po');
             $table->bigInteger('nominal_po'); // payment order
-
+            
             $table->char('no_spk'); // surat perintah kerja
 
             $table->bigInteger('nominal_pengajuan');
