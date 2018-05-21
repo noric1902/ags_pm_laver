@@ -9,7 +9,12 @@ use App\Http\Resources\JenisCollection;
 use App\Http\Resources\Resource\JenisResource;
 
 class JenisController extends Controller
-{
+{   
+    
+    public function __construct() {
+        $this->middleware('auth:api')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +33,7 @@ class JenisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return "created!";
     }
 
     /**
