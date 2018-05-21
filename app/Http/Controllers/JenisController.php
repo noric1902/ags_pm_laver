@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Model\Pengajuan;
+use App\Model\Jenis;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\PengajuanCollection;
 
-class PengajuanController extends Controller
+class JenisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,17 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        return PengajuanCollection::collection(Pengajuan::paginate(10));
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -33,10 +41,21 @@ class PengajuanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Model\Jenis  $jenis
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Jenis $jenis)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Model\Jenis  $jenis
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Jenis $jenis)
     {
         //
     }
@@ -45,10 +64,10 @@ class PengajuanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Model\Jenis  $jenis
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Jenis $jenis)
     {
         //
     }
@@ -56,10 +75,10 @@ class PengajuanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Model\Jenis  $jenis
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Jenis $jenis)
     {
         //
     }

@@ -16,9 +16,11 @@ class KategoriCollection extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'        => $this->id,
+            'id'        => [
+                'id'    => $this->id,
+                'href'  => route('kategori.show', $this->id),
+            ],
             'kategori'  => $this->kategori_pengajuan,
-            'jenis'     => route('jenis.show', $this->jenis_id),
         ];
     }
 }

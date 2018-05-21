@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Resource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SiteCollection extends JsonResource
+class SiteResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -16,10 +16,7 @@ class SiteCollection extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'            => [
-                'id'    => $this->id,
-                'href'  => route('site.show', $this->id),
-            ],
+            'id'            => $this->id,
             'site_id'       => $this->site_id,
             'type'          => $this->site_type,
             'name'          => $this->site_name,

@@ -6,6 +6,7 @@ use App\Model\Jenis;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JenisCollection;
+use App\Http\Resources\Resource\JenisResource;
 
 class JenisController extends Controller
 {
@@ -16,7 +17,7 @@ class JenisController extends Controller
      */
     public function index()
     {
-        return JenisCollection::collection(Jenis::all());
+        return JenisCollection::collection(Jenis::paginate(5));
     }
 
     /**
@@ -36,9 +37,9 @@ class JenisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Jenis $jeni)
     {
-        //
+        return new JenisResource($jeni);
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Model\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectCollection;
+use App\Http\Resources\Resource\ProjectResource;
 
 class ProjectController extends Controller
 {
@@ -16,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectCollection::collection(Project::all());
+        return ProjectCollection::collection(Project::paginate(5));
     }
 
     /**
@@ -36,9 +37,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        //
+        return new ProjectResource($project);
     }
 
     /**

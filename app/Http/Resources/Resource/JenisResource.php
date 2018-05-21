@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Resource;
 
+use App\Http\Resources\KategoriCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class JenisCollection extends JsonResource
+class JenisResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -16,11 +17,11 @@ class JenisCollection extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'        => [
-                'id'    => $this->id,
-                'href'  => route('jenis.show', $this->id),
-            ],
+            'id'        => $this->id,
             'jenis'     => $this->jenis_pengajuan,
+            'href'      => [
+                'kategori'  => KategoriCollection::collection($this->kategori)
+            ]
         ];
     }
 }

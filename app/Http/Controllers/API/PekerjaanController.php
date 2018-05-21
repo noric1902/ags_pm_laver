@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Model\Project;
 use App\Model\Pekerjaan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\PekerjaanCollection;
+use App\Http\Resources\Resource\ProjectResource;
+use App\Http\Resources\Resource\PekerjaanResource;
 
 class PekerjaanController extends Controller
 {
@@ -16,7 +20,7 @@ class PekerjaanController extends Controller
      */
     public function index()
     {
-        return PekerjaanCollection::collection(Pekerjaan::all());
+        return PekerjaanCollection::collection(Pekerjaan::paginate(5));
     }
 
     /**
@@ -36,9 +40,13 @@ class PekerjaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pekerjaan $pekerjaan)
     {
-        //
+        return new PekerjaanResource($pekerjaan);
+    }
+
+    public function show_byproject(Project $project) {
+        return new ProjectCollection($project);
     }
 
     /**

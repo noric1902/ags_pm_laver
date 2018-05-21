@@ -16,9 +16,11 @@ class PekerjaanCollection extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'            => $this->id,
+            'id'            => [
+                'id'    => $this->id,
+                'href'  => route('pekerjaan.show', $this->id),
+            ],
             'pekerjaan'     => $this->pekerjaan,
-            'project'       => route('project.show', $this->project_id),
         ];
     }
 }

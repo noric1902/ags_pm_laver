@@ -16,11 +16,18 @@ class ProjectCollection extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'            => $this->id,
+            'id'            => [
+                'id'    => $this->id,
+                'href'  => route('project.show', $this->id),
+            ],
             'project'       => $this->project,
-            'pekerjaan'     => [
-                'href'  => route('pekerjaan.show', $this->id)
-            ]
+        ];
+    }
+
+    public function with($request) {
+        return [
+            'version'   => '1.0',
+            'author'    => 'noricdev'
         ];
     }
 }

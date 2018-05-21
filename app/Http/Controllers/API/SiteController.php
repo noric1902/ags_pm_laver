@@ -6,6 +6,7 @@ use App\Model\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SiteCollection;
+use App\Http\Resources\Resource\SiteResource;
 
 class SiteController extends Controller
 {
@@ -16,7 +17,7 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return SiteCollection::collection(Site::all());
+        return SiteCollection::collection(Site::paginate(5));
     }
 
     /**
@@ -36,9 +37,9 @@ class SiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Site $site)
     {
-        //
+        return new SiteResource($site);
     }
 
     /**
