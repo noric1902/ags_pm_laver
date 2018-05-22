@@ -6,10 +6,16 @@ use App\Model\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectCollection;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Resource\ProjectResource;
 
 class ProjectController extends Controller
 {
+    
+    public function __construct() {
+        $this->middleware('auth:api')->except('index', 'show');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +32,15 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        //
+        $project = new Project;
+        $project->project = $request->project;
+        if($project->save()) {
+            return response([
+                'data' => new ProjectResource($project)
+            ], Response::HTTP_CREATED);
+        }
     }
 
     /**
@@ -49,9 +61,15 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProjectRequest $request, $id)
     {
-        //
+        $project = Project::findOrFail($id);
+        $project->project = $request->project;
+        if($project->save()) {
+            return response([
+                'data' => new ProjectResource($project)
+            ], Response::HTTP_OK);
+        }
     }
 
     /**
@@ -62,6 +80,9 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+        if($project->delete()) {
+            return response([], Response::HTTP_NO_CONTENT);
+        }
     }
 }

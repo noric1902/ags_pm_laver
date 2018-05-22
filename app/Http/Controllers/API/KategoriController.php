@@ -5,11 +5,18 @@ namespace App\Http\Controllers\API;
 use App\Model\Kategori;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\KategoriRequest;
 use App\Http\Resources\KategoriCollection;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Resource\KategoriResource;
 
 class KategoriController extends Controller
 {
+    
+    public function __construct() {
+        $this->middleware('auth:api')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +33,16 @@ class KategoriController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(KategoriRequest $request)
     {
-        //
+        $kategori = new Kategori;
+        $kategori->kategori_pengajuan = $request->kategori_pengajuan;
+        $kategori->jenis_id = $request->jenis_id;
+        if($kategori->save()) {
+            return response([
+                'data' => new KategoriResource($kategori)
+            ], Response::HTTP_CREATED);
+        }
     }
 
     /**
@@ -49,9 +63,16 @@ class KategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(KategoriRequest $request, $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        $kategori->kategori_pengajuan = $request->kategori_pengajuan;
+        $kategori->jenis_id = $request->jenis_id;
+        if($kategori->save()) {
+            return response([
+                'data' => new KategoriResource($kategori)
+            ], Response::HTTP_OK);
+        }
     }
 
     /**
@@ -62,6 +83,9 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        if($kategori->delete()) {
+            return response([], Response::HTTP_NO_CONTENT);
+        }
     }
 }

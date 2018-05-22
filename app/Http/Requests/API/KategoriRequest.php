@@ -25,7 +25,7 @@ class KategoriRequest extends FormRequest
     {
         return [
             'kategori_pengajuan' => 'required|max:50',
-            'jenis_id' => 'required|exists:jenis,id',
+            'jenis_id' => 'required|integer|exists:jenis,id',
         ];
     }
 }

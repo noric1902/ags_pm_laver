@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pekerjaan extends Model
 {
     protected $table    = 'pekerjaan';
+    protected $fillable = ['pekerjaan'];
     public $timestamps  = false;
 
     public function site() {

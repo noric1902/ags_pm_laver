@@ -37,10 +37,11 @@ class JenisController extends Controller
     {
         $jenis = new Jenis;
         $jenis->jenis_pengajuan = $request->jenis_pengajuan;
-        $jenis->save();
-        return response([
-            'data'  => new JenisResource($jenis)
-        ], Response::HTTP_CREATED);
+        if($jenis->save()) {
+            return response([
+                'data'  => new JenisResource($jenis)
+            ], Response::HTTP_CREATED);
+        }
     }
 
     /**
@@ -61,9 +62,15 @@ class JenisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(JenisRequest $request, $id)
+    {   
+        $jenis = Jenis::findOrFail($id);
+        $jenis->jenis_pengajuan = $request->jenis_pengajuan;
+        if($jenis->save()) {
+            return response([
+                'data'  => new JenisResource($jenis)
+            ], Response::HTTP_OK);
+        }
     }
 
     /**
@@ -74,6 +81,9 @@ class JenisController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jenis = Jenis::findOrFail($id);
+        if ($jenis->delete()) {
+            return response([], Response::HTTP_NO_CONTENT);
+        }
     }
 }

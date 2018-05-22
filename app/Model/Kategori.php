@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
     protected $table    = 'kategori';  
+    protected $fillable = ['kategori_pengajuan'];
     public $timestamps  = false;  
 
     public function jenis() {

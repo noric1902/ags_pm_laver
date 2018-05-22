@@ -7,12 +7,19 @@ use App\Model\Pekerjaan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectCollection;
+use App\Http\Requests\API\PekerjaanRequest;
 use App\Http\Resources\PekerjaanCollection;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Resource\ProjectResource;
 use App\Http\Resources\Resource\PekerjaanResource;
 
 class PekerjaanController extends Controller
 {
+    
+    public function __construct() {
+        $this->middleware('auth:api')->except('index', 'show');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -29,9 +36,18 @@ class PekerjaanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PekerjaanRequest $request)
     {
-        //
+        $pekerjaan = new Pekerjaan;
+        $pekerjaan->pekerjaan = $request->pekerjaan;
+        $pekerjaan->site_id = $request->site_id;
+        $pekerjaan->project_id = $request->project_id;
+        if($pekerjaan->save()) {
+            return response([
+                'data' => new PekerjaanResource($pekerjaan)
+            ], Response::HTTP_CREATED);
+        }
+        
     }
 
     /**
@@ -45,10 +61,6 @@ class PekerjaanController extends Controller
         return new PekerjaanResource($pekerjaan);
     }
 
-    public function show_byproject(Project $project) {
-        return new ProjectCollection($project);
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -56,9 +68,17 @@ class PekerjaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(PekerjaanRequest $request, $id)
+    {   
+        $pekerjaan = Pekerjaan::findOrFail($id);
+        $pekerjaan->pekerjaan = $request->pekerjaan;
+        $pekerjaan->site_id = $request->site_id;
+        $pekerjaan->project_id = $request->project_id;
+        if($pekerjaan->save()) {
+            return response([
+                'data' => new PekerjaanResource($pekerjaan)
+            ], Response::HTTP_OK);
+        }
     }
 
     /**
@@ -69,6 +89,9 @@ class PekerjaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pekerjaan = Pekerjaan::findOrFail($id);
+        if($pekerjaan->delete()) {
+            return response([], Response::HTTP_NO_CONTENT);
+        }
     }
 }

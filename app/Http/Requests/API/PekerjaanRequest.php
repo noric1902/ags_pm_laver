@@ -25,8 +25,8 @@ class PekerjaanRequest extends FormRequest
     {
         return [
             'pekerjaan' => 'required|max:50',
-            'site_id' => 'required|exists:site,id',
-            'project_id' => 'required|exists:project,id',
+            'site_id' => 'required|integer|exists:site,id',
+            'project_id' => 'required|integer|exists:project,id',
         ];
     }
 }
