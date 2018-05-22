@@ -24,7 +24,11 @@ class SiteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'site_id' => 'required|min:6|max:20',
+            'site_type' => 'required',
+            'site_name' => 'required|min:6|max:50',
+            'lokasi' => 'required',
+            'description' => 'nullable',
         ];
     }
 }

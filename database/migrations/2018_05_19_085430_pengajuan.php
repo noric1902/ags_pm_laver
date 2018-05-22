@@ -76,6 +76,5 @@ class Pengajuan extends Migration
     public function down()
     {
         Schema::dropIfExists('pengajuan');
-        //
     }
 }

@@ -18,6 +18,15 @@ class Project extends Migration
             $table->increments('id');
             $table->string('project');
         });
+
+        Schema::create('pekerjaan', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('pekerjaan');
+            $table->unsignedInteger('site_id');
+            $table->foreign('site_id')->references('id')->on('site')->onDelete('cascade');
+            $table->unsignedInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
+        });
         
     }
 
@@ -29,5 +38,6 @@ class Project extends Migration
     public function down()
     {
         Schema::dropIfExists('project');
+        Schema::dropIfExists('pekerjaan');
     }
 }

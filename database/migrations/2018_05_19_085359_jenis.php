@@ -18,6 +18,13 @@ class Jenis extends Migration
             $table->increments('id');
             $table->string('jenis_pengajuan');
         });
+
+        Schema::create('kategori', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('kategori_pengajuan');
+            $table->unsignedInteger('jenis_id');
+            $table->foreign('jenis_id')->references('id')->on('jenis')->onDelete('cascade');
+        });
         
     }
 
@@ -29,6 +36,6 @@ class Jenis extends Migration
     public function down()
     {
         Schema::dropIfExists('jenis');
-        //
+        Schema::dropIfExists('kategori');
     }
 }

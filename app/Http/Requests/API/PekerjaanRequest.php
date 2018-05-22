@@ -13,7 +13,7 @@ class PekerjaanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class PekerjaanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'pekerjaan' => 'required|max:50',
+            'site_id' => 'required|exists:site,id',
+            'project_id' => 'required|exists:project,id',
         ];
     }
 }

@@ -13,7 +13,7 @@ class KategoriRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class KategoriRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'kategori_pengajuan' => 'required|max:50',
+            'jenis_id' => 'required|exists:jenis,id',
         ];
     }
 }

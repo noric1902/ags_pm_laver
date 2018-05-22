@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Model\Jenis;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\JenisRequest;
 use App\Http\Resources\JenisCollection;
 use App\Http\Resources\Resource\JenisResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class JenisController extends Controller
 {   
@@ -31,9 +33,14 @@ class JenisController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JenisRequest $request)
     {
-        return "created!";
+        $jenis = new Jenis;
+        $jenis->jenis_pengajuan = $request->jenis_pengajuan;
+        $jenis->save();
+        return response([
+            'data'  => new JenisResource($jenis)
+        ], Response::HTTP_CREATED);
     }
 
     /**

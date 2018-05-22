@@ -13,7 +13,7 @@ class JenisRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class JenisRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'jenis_pengajuan' => 'required|max:50',
         ];
     }
 }
