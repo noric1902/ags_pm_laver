@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/semantic.min.css') }}">
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script>
         window.Laravel = { csrfToken: '{{ csrf_token() }}' }
     </script>

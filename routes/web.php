@@ -13,5 +13,7 @@
 
 Auth::routes();
 
+// Route::any('/{all}', function() {return view('front/app');})->where(['all' => '.*']);
+
 // FrontEnd Controller
 Route::get('/', 'Front\HomeController@index')->name('home');
