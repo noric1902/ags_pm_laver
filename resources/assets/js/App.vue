@@ -1,6 +1,7 @@
 <template>
-    <div class="container">
-        <div class="navbar">
+    <div>
+        <navbar></navbar>
+        <div class="containe">
             <div class="content">
                 <transition name="fade" mode="out-in">
                     <router-view class="page" :key="$route.path"></router-view>
@@ -12,7 +13,7 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 

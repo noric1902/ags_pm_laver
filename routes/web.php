@@ -13,7 +13,19 @@
 
 Auth::routes();
 
-// Route::any('/{all}', function() {return view('front/app');})->where(['all' => '.*']);
 
-// FrontEnd Controller
-Route::get('/', 'Front\HomeController@index')->name('home');
+Route::group(['prefix' => 'auth'], function() {
+    Route::post('/login', 'AuthController@login');
+    
+    Route::group(['middleware' => 'jwt.auth'], function(){
+        Route::get('/user', 'AuthController@user');
+    });
+
+    Route::group(['middleware' => 'jwt.refresh'], function(){
+        Route::get('/refresh', 'AuthController@refresh');
+    });
+});
+
+
+Route::get('/', function() { return view('front/app'); });
+Route::get('/login', function() { return view('front/app'); });

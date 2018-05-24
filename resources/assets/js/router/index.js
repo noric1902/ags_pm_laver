@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import VueResource from 'vue-resource'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import Nav from '../views/front/template/Nav.vue'
+
 Vue.use(VueRouter)
-// Vue.use(VueResource)
 Vue.use(VueAxios, axios)
+
+Vue.component('navbar', require('../views/front/template/Nav.vue'))
 
 const routes = [
     {
@@ -29,7 +31,7 @@ const router = new VueRouter({
     mode: 'history', // remove hashtag from vue route url
     history: 'true',
     routes: routes,
-    linkActiveClass: 'active'
+    linkActiveClass: 'active',
 })
 
 router.mode = 'html5'
@@ -38,7 +40,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.middlewareAuth)) {
         if (!auth.check()) {
             next({
-                path: '/login',
+                path: '/',
                 query: { redirect: to.fullPath }
             })
         }
