@@ -19,11 +19,12 @@ use Illuminate\Http\Request;
 
 Route::group([
     'middleware' => 'api',
-    'namespace' => 'App\Http\Controllers',
+    // 'namespace' => 'App\Http\Controllers',
     'prefix' => 'auth',
 ], function() {
+    // Route::post('/user', 'AuthController@user');
     Route::post('/login', 'AuthController@login');
-    Route::post('refresh', 'AuthController@refresh');
+    Route::post('/refresh', 'AuthController@refresh');
 });
 
 Route::group(['prefix' => 'v1'], function() {

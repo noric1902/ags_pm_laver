@@ -24,7 +24,7 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return SiteCollection::collection(Site::paginate(5));
+        return SiteCollection::collection(Site::paginate(10));
     }
 
     /**

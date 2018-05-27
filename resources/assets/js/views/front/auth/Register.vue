@@ -15,14 +15,19 @@
                         <label for="password">Password</label>
                         <input type="password" id="password" class="form-control" v-model="password" required>
                     </div>
-                    <div class="inline field">
-                        <div class="ui toggle checkbox">
-                        <input type="checkbox" tabindex="0" class="hidden">
-                        <label>Remember me</label>
-                        </div>
+                    <div class="form-group field">
+                        <label for="permission">Permission</label>
+                        <select id="permission" class="form-control selectpicker" v-model="permission">
+                            <option value="default">SELECT PERMISSION</option>
+                            <option value="pic">PIC</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="access_code">Access Code</label>
+                        <input type="text" class="form-control" id="access_code" v-model="access_code">
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-default">Sign in</button>
+                    <button type="submit" class="btn btn-default">Register</button>
                 </form>
             </div>
         </div>
@@ -32,32 +37,16 @@
 <script>
 export default {
     metaInfo: {
-        title: 'Login Page',
+        title: 'Register Page'
     },
-    asyncData() {
+    data() {
         return {
             email: null,
             password: null,
+            permission: null,
+            access_code: null,
             error: false,
-        }
-    },
-    methods: {
-        login() {
-            var app = this
-            this.$auth.login({
-                params: {
-                    email: app.email,
-                    password: app.password,
-                },
-                success: function() {},
-                error: function(e) {
-                    app.error = true
-                    app.errors = e.response.data.errors
-                },
-                rememberMe: true,
-                redirect: '/',
-                fetchUser: true,
-            })
+            permission: 'default'
         }
     }
 }

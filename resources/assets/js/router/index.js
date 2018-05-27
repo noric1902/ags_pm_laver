@@ -2,38 +2,27 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import routes from './routes'
+import NProgress from 'nprogress'
+import Meta from 'vue-meta'
+import '../../../../node_modules/nprogress/nprogress'
 
-import Nav from '../views/front/template/Nav.vue'
+Vue.prototype.$api = 'api/v1/'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
+Vue.use(NProgress)
+Vue.use(Meta)
 
 Vue.component('navbar', require('../views/front/template/Nav.vue'))
 
-const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: require('../views/front/dashboard/index.vue'),
-        meta: {
-            auth: true
-        }
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: frontRequire('auth/Login'),
-    },
-]
-
 const router = new VueRouter({
     hashbang: false,
-    mode: 'history', // remove hashtag from vue route url
+    mode: 'history',
     history: 'true',
     routes: routes,
     linkActiveClass: 'active',
 })
-
 router.mode = 'html5'
 
 router.beforeEach((to, from, next) => {
@@ -41,16 +30,20 @@ router.beforeEach((to, from, next) => {
         if (!auth.check()) {
             next({
                 path: '/',
-                query: { redirect: to.fullPath }
+                query: { 
+                    redirect: to.fullPath 
+                }
             })
         }
     }
+    NProgress.start()
+    NProgress.set(0.1)
     next();
 })
 
-function frontRequire($component) {
-    return require('../views/front/' + $component + '.vue')
-}
+router.afterEach((to, from) => {
+    setTimeout(() => NProgress.done(), 500)
+})
 
 Vue.router = router
 

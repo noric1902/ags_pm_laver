@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{--  <meta charset="UTF-8">  --}}
+    {{--  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/semantic.min.css') }}">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/icon.min.css'>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/semantic.min.js') }}"></script>
+    {{--  <script src="https://unpkg.com/nprogress"></script>  --}}
     <script>
         window.Laravel = { csrfToken: '{{ csrf_token() }}' }
     </script>
@@ -17,10 +19,5 @@
 <body>
     <div id="app"></div>
     <script src="{{ mix('/js/app.js') }}"></script>
-    <script>
-        $('.ui.dropdown')
-            .dropdown()
-        ;
-    </script>
 </body>
 </html>
