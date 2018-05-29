@@ -34,7 +34,7 @@ export default {
     metaInfo: {
         title: 'Login Page',
     },
-    asyncData() {
+    data() {
         return {
             email: null,
             password: null,

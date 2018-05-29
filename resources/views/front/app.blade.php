@@ -7,8 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/semantic.min.css') }}">
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/icon.min.css'>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/semantic.min.js') }}"></script>
     {{--  <script src="https://unpkg.com/nprogress"></script>  --}}

@@ -5,16 +5,24 @@ import VueAxios from 'vue-axios'
 import routes from './routes'
 import NProgress from 'nprogress'
 import Meta from 'vue-meta'
+// import VueResource from 'vue-resource'
 import '../../../../node_modules/nprogress/nprogress'
-
-Vue.prototype.$api = 'api/v1/'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 Vue.use(NProgress)
 Vue.use(Meta)
+// Vue.use(VueResource)
+
+Vue.prototype.$api = 'api/v1/'
+// Vue.http.headers.common['X-CSRF-TOKEN'] = Laravel.csrfToken
+// axios.defaults.headers.common = {
+//     'X-CSRF-TOKEN': window.Laravel.csrfToken,
+//     'X-Requested-With': 'XMLHTTPRequest',
+// }
 
 Vue.component('navbar', require('../views/front/template/Nav.vue'))
+Vue.component('pagination', require('laravel-vue-pagination'))
 
 const router = new VueRouter({
     hashbang: false,

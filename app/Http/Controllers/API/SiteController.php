@@ -40,7 +40,7 @@ class SiteController extends Controller
         $site->site_type = $request->site_type;
         $site->site_name = $request->site_name;
         $site->lokasi = $request->lokasi;
-        $site->description = $reqeuest->description;
+        $site->description = $request->description;
         if($site->save()) {
             return response([
                 'data' => new SiteResource($site)

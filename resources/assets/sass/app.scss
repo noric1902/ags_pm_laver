@@ -1,9 +1,12 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/icon.min.css");
+@import "~semantic/dist/semantic.min.css";
 
 // Variables
 @import "variables";
+@import "custom";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

@@ -4,7 +4,9 @@
 
 <script>
 export default {
-
+    metaInfo: {
+        title: 'Job Management'
+    }
 }
 </script>
 

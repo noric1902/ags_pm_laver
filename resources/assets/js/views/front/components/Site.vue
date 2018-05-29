@@ -1,6 +1,11 @@
 <template>
     <div>
+        <div class="alert alert-success" v-if="success">
+            <p>Record successfully added!</p>
+        </div>
+        
         <!-- BASIC FILTER -->
+        
         <div>
             <!-- <h5>FILTER</h5> -->
             <form action="" class="ui form">
@@ -57,7 +62,7 @@
                         <div class="ui buttons">
                             <button class="ui positive button">Edit</button>
                         <div class="or"></div>
-                            <button class="ui negative button" @click="deleteSite(site.id)">Delete</button>
+                            <button class="ui negative button" @click="deleteSite(site.id.id)">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -73,12 +78,17 @@
                     </div>
                 </div>
                 <div class="ui right floated pagination menu">
+                    <li class="item">
+                        Showing page {{ pagination.current_page }} of {{ pagination.last_page }}
+                    </li>
                     <li v-bind:class="[{ disabled: !pagination.prev_page_url }]" class="icon item" @click="fetchSites(pagination.prev_page_url)">
                         <i class="left chevron icon"></i>
                     </li>
-                        <li class="item">
-                            Page {{ pagination.current_page }} of {{ pagination.last_page }}
-                        </li>
+                    <li v-for="page in pageNumber">
+                        <a v-bind:class="[page == isActive ? 'active' : '']" @click.prevent="changePage(page)" class="item">
+                            {{ page }}
+                        </a>
+                    </li>
                     <li v-bind:class="[{ disabled: !pagination.next_page_url }]" class="icon item" @click="fetchSites(pagination.next_page_url)">
                         <i class="right chevron icon"></i>
                     </li>
@@ -88,6 +98,11 @@
         </table>
 
         <div class="ui modal scale">
+            
+            <div class="alert alert-danger" v-if="error">
+                <p>Something went wrong. Please check your input!</p>
+            </div>
+
             <div class="header">Add New Site Record</div>
             <div class="content">
                 <form @submit.prevent="addSite()" class="ui form">
@@ -97,11 +112,20 @@
                     </div>
                     <div class="field">
                         <label for="">Site Name</label>
-                        <input type="text" v-model="site.name">
+                        <input type="text" v-model="site.site_name">
                     </div>
                     <div class="field">
                         <label for="">Type</label>
-                        <select v-model="site.type">
+                        <!-- <div class="ui selection dropdown">
+                        <input type="hidden" v-model="site.type">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Site Type</div>
+                            <div class="menu">
+                                <div class="item" data-value="tower">Tower</div>
+                                <div class="item" data-value="telkom">Telkom</div>
+                            </div>
+                        </div> -->
+                        <select v-model="site.site_type">
                             <option value="tower">Tower</option>
                             <option value="telkom">Telkom</option>
                         </select>
@@ -123,6 +147,9 @@
 
 <script>
 export default {
+    mounted() {
+        // console.log(this.$auth.token());
+    },
     metaInfo: {
         title: 'Site Management'
     },
@@ -132,26 +159,59 @@ export default {
             site: {
                 site_id: '',
                 site_name: '',
-                location: ''
+                site_type: '',
+                lokasi: '',
+                description: '',
             },
             id: '',
             pagination: {},
+            offset: 3,
             edit: false,
             checked: false,
+            error: false,
+            success: false,
         }
     },
     created() {
         this.fetchSites();
     },
+    computed: {
+        isActive: function() {
+            return this.pagination.current_page
+        },
+        pageNumber: function() {
+            if(!this.pagination.to) {
+                return []
+            }
+
+            var from = this.pagination.current_page - this.offset
+            if(from < 1) {
+                from = 1
+            }
+
+            var to = from + (this.offset * 2)
+            if(to > this.pagination.last_page) {
+                to = this.pagination.last_page
+            }
+
+            var pagesArray = [];
+            while(from <= to) {
+                pagesArray.push(from)
+                from++
+            }
+
+            return pagesArray
+        }
+    },
     methods: {
         fetchSites(page_url) {
-            let st = this
+            // let st = this
             page_url = page_url || this.$api + 'site'
             fetch(page_url)
             .then(res => res.json())
             .then(res => {
                 this.sites = res.data
-                st.makePagination(res.meta, res.links)
+                this.makePagination(res.meta, res.links)
             }).catch(err => console.log(err))
         },
         makePagination(meta, links) {
@@ -159,43 +219,67 @@ export default {
                 current_page: meta.current_page,
                 last_page: meta.last_page,
                 next_page_url: links.next,
-                prev_page_url: links.prev
+                prev_page_url: links.prev,
+                from: meta.from,
+                to: meta.to,
+                total: meta.total,
+                per_page: meta.per_page,
             }
 
             this.pagination = pagination
         },
+        changePage(page) {
+            this.pagination.current_page = page  
+            this.fetchSites(this.$api + 'site/?page=' + page)
+        },
         deleteSite(id) {
             if(confirm('Are you sure?')) {
-                fetch(this.$api + 'site/${id}', {
+                fetch(this.$api + `site/${id}`, {
                     method: 'delete',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + this.$auth.token()
+                    }
                 })
                 .then(res => res.json())
-                .then(data => {
-                    alert('Site removed')
-                    this.fetchSites()
+                .then(function() {
+                    alert("Site Removed")
+                    this.fetchSites(pagination.current_page)
                 })
-                .catch(err => console.log(err))
+                .catch(function(e) {
+                    alert('Error ' + e)
+                })
             }
         },
         addSite() {
-            fetch(this.$api + 'site', {
+            console.log(JSON.stringify(this.site))
+            let app = this
+            this.axios(this.$api + 'site', {
                 method: 'post',
-                body: JSON.stringify(this.site),
+                body: JSON.stringify(app.site),
+                data: JSON.stringify(app.site),
                 headers: {
-                    'content-type': 'application/json',
-                    'token_type': 'Bearer',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + this.$auth.token()
                 }
             })
             .then(res => res.json())
-            .then(data => {
-                this.site_id = ''
-                this.site.name = ''
-                this.site.type = ''
-                this.site.lokasi = ''
-                this.site.description = ''
-                alert('Site Added')
+            .then(function() {
+                app.success = true
+                app.site.site_id = ''
+                app.site.site_name = ''
+                app.site.site_type = ''
+                app.site.lokasi = ''
+                app.site.description = ''
                 this.fetchSites()
             })
+            .catch(function(e) {
+                app.error = true,
+                app.errors = e.response.data.errors
+            })
+            // console.log(JSON.stringify(this.site))
         },
         // toggleChecked() {
         //     this.checked = !this.checked

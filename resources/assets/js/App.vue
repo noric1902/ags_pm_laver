@@ -42,6 +42,7 @@
             $('.menu.sidebar').sidebar('toggle');
         });
     });
+
 </script>
 
 <style>

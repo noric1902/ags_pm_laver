@@ -11,11 +11,12 @@ const routes = [
     { path: '/register', name: 'register', component: frontRequire('auth/Register'), },
     { path: '/manual', name: 'manual', component: frontRequire('dashboard/Manual'), },
     { path: '/about', name: 'about', component: frontRequire('dashboard/About'), },
-    { path: '/site', name: 'site', component: frontRequire('components/Site') },
+    { path: '/site', name: 'site', component: frontRequire('components/Site'), meta: { auth: true } },
     { path: '/project', name: 'project', component: frontRequire('components/Project') },
     { path: '/job', name: 'job', component: frontRequire('components/Job') },
     { path: '/submission', name: 'submission', component: frontRequire('components/Submission') },
     { path: '/progress', name: 'progress', component: frontRequire('components/Progress') },
+    { path: '/*', name: '404', component: frontRequire('404'), },
 ]
 
 function frontRequire($component) {

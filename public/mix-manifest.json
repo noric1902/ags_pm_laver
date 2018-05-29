@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/css/semantic.min.css": "/css/semantic.min.css",
     "/js/semantic.min.js": "/js/semantic.min.js",
-    "/js/jquery.min.js": "/js/jquery.min.js"
+    "/js/jquery.min.js": "/js/jquery.min.js",
+    "/js/bootstrap-select.min.js": "/js/bootstrap-select.min.js"
 }

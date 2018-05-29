@@ -3,7 +3,7 @@
         <!-- <div class="header item">AGS</div> -->
         <div id="show-sidebar" class="menu header">
             <a class="item">
-                <i class="sidebar icon"></i> AGS
+                <i v-if="$auth.check()" class="sidebar icon"></i> AGS
             </a>
         </div>
         <router-link :to="{ name: 'home' }" class="item">Dashboard</router-link>
