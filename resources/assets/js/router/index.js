@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios'
 import routes from './routes'
 import NProgress from 'nprogress'
 import Meta from 'vue-meta'
+import Vuelidate from 'vuelidate'
 // import VueResource from 'vue-resource'
 import '../../../../node_modules/nprogress/nprogress'
 
@@ -12,6 +13,7 @@ Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 Vue.use(NProgress)
 Vue.use(Meta)
+Vue.use(Vuelidate)
 // Vue.use(VueResource)
 
 Vue.prototype.$api = 'api/v1/'
@@ -22,7 +24,7 @@ Vue.prototype.$api = 'api/v1/'
 // }
 
 Vue.component('navbar', require('../views/front/template/Nav.vue'))
-Vue.component('pagination', require('laravel-vue-pagination'))
+Vue.component('loading', require('vue-spinner/src/BeatLoader.vue'))
 
 const router = new VueRouter({
     hashbang: false,
