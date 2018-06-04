@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- BASIC FILTER -->
-        
+
         <div>
             <!-- <h5>FILTER</h5> -->
             <form action="" class="ui form">
@@ -50,18 +50,10 @@
                     <label for="">Site Name</label>
                     <input type="text" v-model="site.site_name" v-model.trim="$v.site.site_name.$model">
                     <span class="alert-danger" v-if="!$v.site.site_name.required && error">The site name field is required</span>
+                    <span class="alert-danger" v-if="!$v.site.site_name.minLength && error">The site ID must have at least {{ $v.site.site_name.$params.minLength.min }} letters</span>                    
                 </div>
                 <div class="field">
                     <label for="">Type</label>
-                    <!-- <div class="ui selection dropdown">
-                    <input type="hidden" v-model="site.site_type">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Site Type</div>
-                        <div class="menu">
-                            <div class="item" data-value="tower">Tower</div>
-                            <div class="item" data-value="telkom">Telkom</div>
-                        </div>
-                    </div> -->
                     <select v-model="site.site_type" v-model.trim="$v.site.site_type.$model">
                         <option value="default" selected disabled>SELECT TOWER TYPE</option>
                         <option value="tower">Tower</option>
@@ -119,9 +111,9 @@
                     <td>{{ site.name }}</td>
                     <td>{{ site.lokasi }}</td>
                     <td class="center aligned">
-                        <button @click="showModal=true" class="ui detail primary basic button">Detail</button>
+                        <b-button @click="viewModal(site.id.id)" class="ui detail primary basic button">Detail</b-button>
                         <div class="ui buttons">
-                            <button class="ui positive button">Edit</button>
+                            <b-button @click="editModal(site.id.id)" class="ui positive button">Edit</b-button>
                         <div class="or"></div>
                             <button class="ui negative button" @click="deleteSite(site.id.id)">Delete</button>
                         </div>
@@ -158,56 +150,72 @@
             </tr></tfoot>
         </table>
 
-        <!-- <div class="ui modal scale" v-if="modal">
-            
-            <div class="alert alert-danger" v-if="error">
-                <p>Something went wrong. Please check your input!</p>
+        <b-modal ref="detailRef" id="viewModal" size="lg" title="Record Details" hide-footer>
+            <!-- <p class="my-4">Hello from modal</p> -->
+            <div>
+                <table class="ui unstackable table">
+                    <tr>
+                        <th width="200">Site ID</th>
+                        <td>{{ vsites.site_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Site Name</th>
+                        <td>{{ vsites.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Site Type</td>
+                        <td>{{ vsites.type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Site Location</th>
+                        <td>{{ vsites.lokasi }}</td>
+                    </tr>
+                    <tr>
+                        <th>Site Description</th>
+                        <td>{{ vsites.description == null ? '-' : vsites.description }}</td>
+                    </tr>
+                </table>
+                <b-btn class="ui button" @click="hideModal">Close</b-btn>
             </div>
+        </b-modal>
 
-            <div class="header">Add New Site Record</div>
-            <div class="content">
-                <form @submit.prevent="addSite()" class="ui form">
+        <b-modal ref="editFormRef" id="viewModal" size="lg" title="Update Record Details" hide-footer>
+            <!-- <p class="my-4">Hello from modal</p> -->
+            <form @submit.prevent="saveChanges(vsite.id)" class="ui form">
                     <div class="field">
                         <label for="">Site ID</label>
-                        <input type="text" v-model="site.site_id">
+                        <input type="text" v-model="vsite.site_id">
                     </div>
                     <div class="field">
                         <label for="">Site Name</label>
-                        <input type="text" v-model="site.site_name">
+                        <input type="text" v-model="vsite.site_name">
                     </div>
                     <div class="field">
-                        <label for="">Type</label>
-                        <div class="ui selection dropdown">
-                        <input type="hidden" v-model="site.type">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Site Type</div>
-                            <div class="menu">
-                                <div class="item" data-value="tower">Tower</div>
-                                <div class="item" data-value="telkom">Telkom</div>
-                            </div>
-                        </div>
-                        <select v-model="site.site_type">
+                        <label for="">Site Type</label>
+                        <select v-model="vsite.site_type">
+                            <option value="default" selected disabled>SELECT TOWER TYPE</option>
                             <option value="tower">Tower</option>
                             <option value="telkom">Telkom</option>
                         </select>
                     </div>
                     <div class="field">
-                        <label for="">Location</label>
-                        <input type="text" v-model="site.lokasi">
+                        <label for="">Site Location</label>
+                        <input type="text" v-model="vsite.lokasi">
                     </div>
                     <div class="field">
                         <label for="">Site Description</label>
-                        <textarea cols="30" rows="10" v-model="site.description"></textarea>
+                        <textarea v-model="vsite.description"></textarea>
                     </div>
-                    <button class="ui button">Add</button>
-            </form>
-            </div>
-        </div> -->
+                    <button class="ui button positive">Save Changes</button>
+                    <b-btn class="ui button" @click="hideModal">Close</b-btn>
+                </form>
+        </b-modal>
     </div>
 </template>
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
+import NProgress from 'nprogress'
 export default {
     metaInfo: {
         title: 'Site Management'
@@ -215,6 +223,15 @@ export default {
     data() {
         return {
             sites: [],
+            vsites: [],
+            vsite: {
+                id: '',
+                site_id: '',
+                site_name: '',
+                site_type: '',
+                lokasi: '',
+                description: '',
+            },
             site: {
                 site_id: '',
                 site_name: '',
@@ -230,7 +247,7 @@ export default {
             error: false,
             success: false,
             loading: true,
-            modal: true,
+            modal: false,
             add: false,
             submitStatus: null,
         }
@@ -242,7 +259,8 @@ export default {
                 minLength: minLength(6)
             },
             site_name: {
-                required
+                required,
+                minLength: minLength(6)                
             },
             site_type: {
                 required
@@ -285,53 +303,18 @@ export default {
     },
     methods: {
         fetchSites(page_url) {
-            // let st = this
             this.loading = true
             page_url = page_url || this.$api + 'site'
-            fetch(page_url)
-            .then(res => res.json())
+            this.axios({
+                method: 'get',
+                url: page_url
+            })
             .then(res => {
-                this.sites = res.data
-                this.makePagination(res.meta, res.links)
+                this.sites = res.data.data
+                this.makePagination(res.data.meta, res.data.links)
                 this.loading = false
+                NProgress.done()
             }).catch(err => console.log(err))
-        },
-        makePagination(meta, links) {
-            let pagination = {
-                current_page: meta.current_page,
-                last_page: meta.last_page,
-                next_page_url: links.next,
-                prev_page_url: links.prev,
-                from: meta.from,
-                to: meta.to,
-                total: meta.total,
-                per_page: meta.per_page,
-            }
-
-            this.pagination = pagination
-        },
-        changePage(page) {
-            this.pagination.current_page = page  
-            this.fetchSites(this.$api + 'site/?page=' + page)
-        },
-        deleteSite(id) {
-            if(confirm('Are you sure?')) {
-                fetch(this.$api + `site/${id}`, {
-                    method: 'delete',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + this.$auth.token(),
-                    }
-                })
-                // .then(res => res.json())
-                .then(res => {
-                    alert("Site Removed")
-                    this.fetchSites()
-                    this.changePage(this.pagination.current_page)
-                })
-                .catch(err => alert('Error ' + err))
-            }
         },
         addSite() {
             this.$v.$touch()
@@ -367,6 +350,115 @@ export default {
                 app.error = true
                 this.submitStatus = null
             })
+        },
+        // viewSite(id) {
+        //     NProgress.start()
+            
+        //     .catch(err => console.log(err))
+        // },
+        saveChanges(id) {
+            let app = this
+            console.log(JSON.stringify(app.vsite))
+            NProgress.start();
+            this.axios({
+                method: 'put',
+                url: this.$api + `site/${id}`,
+                body: JSON.stringify(app.vsite),
+                data: JSON.stringify(app.vsite),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + this.$auth.token(),
+                }
+            })
+            .then(res => {
+                this.fetchSites()
+                this.changePage(this.pagination.current_page)
+                NProgress.done()
+                this.$refs.editFormRef.hide()
+            })
+            .catch(err => console.log(err))
+        },
+        deleteSite(id) {
+            this.$dialog.confirm('Are you sure want to delete this record ?')
+            .then(res => {
+                this.axios({
+                    method: 'delete',
+                    url: this.$api + `site/${id}`,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + this.$auth.token(),
+                    }
+                })
+                .then(res => {
+                    setTimeout(() => {
+                        console.log('Delete action completed ');
+                        dialog.close();
+                    }, 2500)
+                    this.fetchSites()
+                    this.changePage(this.pagination.current_page)
+                })
+                .catch(err => alert('Error ' + err))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        makePagination(meta, links) {
+            let pagination = {
+                current_page: meta.current_page,
+                last_page: meta.last_page,
+                next_page_url: links.next,
+                prev_page_url: links.prev,
+                from: meta.from,
+                to: meta.to,
+                total: meta.total,
+                per_page: meta.per_page,
+            }
+
+            this.pagination = pagination
+        },
+        changePage(page) {
+            this.pagination.current_page = page  
+            this.fetchSites(this.$api + 'site/?page=' + page)
+        },
+        viewModal(id) {
+            NProgress.start()
+            this.$refs.detailRef.show()
+            this.axios({
+                method: 'get',
+                url: this.$api + `site/${id}`,
+            })
+            .then(res => {
+                this.vsites = res.data
+                NProgress.done()
+            })
+        },
+        editModal(id) {
+            let app = this
+            NProgress.start()
+            this.$refs.editFormRef.show()
+            this.axios({
+                method: 'get',
+                url: this.$api + `site/${id}`,
+            })
+            .then(res => {
+                // app.vsite = res.data
+                app.vsite.id = res.data.id
+                app.vsite.site_id = res.data.site_id 
+                app.vsite.site_name = res.data.name
+                app.vsite.site_type = res.data.type
+                app.vsite.lokasi = res.data.lokasi 
+                app.vsite.description = res.data.description
+                NProgress.done()
+            })
+            .catch(err => console.log(err))
+        },
+        hideModal() {
+            this.$refs.detailRef.hide()
+            this.$refs.editFormRef.hide()
+            // this.vsite = []
         },
     }
 }

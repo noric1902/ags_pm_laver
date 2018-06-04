@@ -6,3 +6,11 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .copy('node_modules/semantic/dist/semantic.min.js', 'public/js/semantic.min.js')
    .copy('node_modules/jquery/dist/jquery.min.js', 'public/js/jquery.min.js')
    .copy('node_modules/bootstrap-select/dist/js/bootstrap-select.min.js', 'public/js/bootstrap-select.min.js');
+
+// mix.webpackConfig({
+//     resolve: {
+//         alias: {
+//             'vue$': 'vue/dist/vue.runtime.common.js'
+//         }
+//     }
+// })  

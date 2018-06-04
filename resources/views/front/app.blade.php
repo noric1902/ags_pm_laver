@@ -15,7 +15,11 @@
     </script>
 </head>
 <body>
-    <div id="app"></div>
+    {{-- {{ $ssr }}
+    <script src="{{ asset('js/entry-client.js') }}" type="text/javascript"></script> --}}
+
+        <div id="app"></div>
+    
     <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

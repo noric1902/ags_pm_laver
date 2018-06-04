@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('{any}', function() { return view('front.app'); });
+Route::get('{any}', 'Front\HomeController@index');
 
 Auth::routes();
 Route::group(['prefix' => 'auth'], function() {
@@ -27,7 +27,5 @@ $routeApp = array(
 );
 
 foreach($routeApp as $route) {
-    Route::get($route, function() {
-        return view('front.app');
-    });
+    Route::get($route, 'Front\HomeController@index');
 }

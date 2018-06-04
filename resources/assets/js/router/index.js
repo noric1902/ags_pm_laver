@@ -6,14 +6,17 @@ import routes from './routes'
 import NProgress from 'nprogress'
 import Meta from 'vue-meta'
 import Vuelidate from 'vuelidate'
+import VuejsDialog from 'vuejs-dialog'
+import BootstrapVue from 'bootstrap-vue'
 // import VueResource from 'vue-resource'
-import '../../../../node_modules/nprogress/nprogress'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 Vue.use(NProgress)
 Vue.use(Meta)
 Vue.use(Vuelidate)
+Vue.use(VuejsDialog)
+Vue.use(BootstrapVue)
 // Vue.use(VueResource)
 
 Vue.prototype.$api = 'api/v1/'
@@ -47,12 +50,11 @@ router.beforeEach((to, from, next) => {
         }
     }
     NProgress.start()
-    NProgress.set(0.1)
-    next();
+    next()
 })
 
 router.afterEach((to, from) => {
-    setTimeout(() => NProgress.done(), 500)
+    NProgress.done()
 })
 
 Vue.router = router
