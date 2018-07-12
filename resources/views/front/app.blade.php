@@ -21,5 +21,21 @@
         <div id="app"></div>
     
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script>
+        // semantic
+    $(function() {
+        $('.ui.dropdown').dropdown();
+        $('.ui.checkbox').checkbox();
+        $('#show-sidebar').click(function() {
+            $('#show-sidebar').show();
+            $('.menu.sidebar').sidebar('toggle');
+        });
+        
+        $('#hide-sidebar').click(function() {
+            $('#show-sidebar').show();
+            $('.menu.sidebar').sidebar('toggle');
+        });
+    });
+    </script>
 </body>
 </html>

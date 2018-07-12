@@ -702,6 +702,10 @@ a {
   display: block;
 }
 
+.message-success {
+  display: none;
+}
+
 /*!
  * Bootstrap v4.1.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

@@ -16,13 +16,10 @@ class SiteCollection extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id'            => [
-                'id'    => $this->id,
-                'href'  => route('site.show', $this->id),
-            ],
+            'id'            => $this->id,
             'site_id'       => $this->site_id,
-            'type'          => $this->site_type,
-            'name'          => $this->site_name,
+            'site_type'          => $this->site_type,
+            'site_name'          => $this->site_name,
             'lokasi'        => $this->lokasi,
             'description'   => $this->description,
         ];

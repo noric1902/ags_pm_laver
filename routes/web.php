@@ -20,6 +20,9 @@ Route::group(['prefix' => 'auth'], function() {
     Route::group(['middleware' => 'jwt.refresh'], function(){ Route::get('/refresh', 'AuthController@refresh'); });
 });
 
+Route::delete('site/delete-selected', 'Front\SiteController@deleteSelected');
+Route::get('site/filter', 'Front\SiteController@doFilter');
+
 $routeApp = array(
     '/', 
     '/login', 

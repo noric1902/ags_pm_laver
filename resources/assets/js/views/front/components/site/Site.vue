@@ -2,16 +2,16 @@
     <div>
         <!-- BASIC FILTER -->
 
-        <div>
+        <!-- <div> -->
             <!-- <h5>FILTER</h5> -->
-            <form action="" class="ui form">
+            <!-- <form @submit.prevent="doFilter()" class="ui form">
                 <div class="field">
                     <label for="">Site Name</label>
-                    <input type="text" name="site_name">
+                    <input type="text" v-model="filter.site_name">
                 </div>
                 <button class="ui button">Find</button>
-            </form>
-        </div>
+            </form> -->
+        <!-- </div> -->
 
         <!-- ADVANCED FILTER -->
         <div>
@@ -27,9 +27,43 @@
         <button class="ui button" @click="changePage(pagination.current_page)">
             <i class="sync icon"></i> Reload Data
         </button>
-        <button v-bind:class="[{ disabled: !checked == true }]" class="ui negative button right floated" @click="fetchSites(pagination.current_page)">
+        <button class="ui button">
+            Show Advanced Filter
+        </button>
+        <button v-bind:class="[{ disabled: checkedData == '' }]" class="ui negative button right floated" @click="deleteSelected()">
             <i class="trash icon"></i> Delete Selected
         </button>
+        <button class="ui button right floated" v-if="checkedData != ''">
+            <div class="ui simple dropdown item">
+                <div class="text">...</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <span v-for="data in checkedData">
+                        {{ data }}
+                    </span>
+                </div>
+            </div>
+        </button>
+        <hr>
+        <div>
+            <form action="" class="ui form">
+                <div class="fields">
+                    <div class="three wide field">
+                        <label for="">Operator</label>
+                        <div class="field">
+                            <select @change="doFilter()" v-model="filter.operator">
+                                <option value="equal_to">Equal to (=)</option>
+                                <option value="contains">Contains (%)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field" style="width:100%">
+                        <label for="">Site ID</label>
+                        <input v-on:keyup="doFilter()" type="text" v-model="filter.site_id" placeholder="Type here to find">
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <div v-bind:class="[ add == true ? 'show' : 'hide' ]">
             <hr>
@@ -54,13 +88,25 @@
                 </div>
                 <div class="field">
                     <label for="">Type</label>
-                    <select v-model="site.site_type" v-model.trim="$v.site.site_type.$model">
+                    <select class="ui dropdown" v-model="site.site_type" v-model.trim="$v.site.site_type.$model">
                         <option value="default" selected disabled>SELECT TOWER TYPE</option>
                         <option value="tower">Tower</option>
                         <option value="telkom">Telkom</option>
                     </select>
                     <span class="alert-danger" v-if="!$v.site.site_type.required && error">The tower type field must be selected</span>
                 </div>
+                <!-- <div class="field">
+                    <label for="">Type</label>
+                    <div class="ui selection dropdown">
+                    <input type="hidden" name="gender">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Gender</div>
+                        <div class="menu">
+                            <div class="item" data-value="1">Male</div>
+                            <div class="item" data-value="0">Female</div>
+                        </div>
+                    </div>
+                </div> -->
                 <div class="field">
                     <label for="">Location</label>
                     <input type="text" v-model="site.lokasi" v-model.trim="$v.site.lokasi.$model">
@@ -89,12 +135,12 @@
                     </th>
                 </tr>
                 <tr>
-                    <!-- <th class="center aligned">
+                    <th class="center aligned">
                         <i class="check icon"></i>
-                    </th> -->
-                    <th>Site ID</th>
-                    <th>Site Name</th>
-                    <th>Location</th>
+                    </th>
+                    <th style="cursor: pointer" @click="order('site_id')">Site ID</th>
+                    <th style="cursor: pointer" @click="order('site_name')">Site Name</th>
+                    <th style="cursor: pointer" @click="order('lokasi')">Location</th>
                     <th width="300">
                         Action
                     </th>
@@ -102,20 +148,20 @@
             </thead>
             <tbody v-if="!loading">
                 <tr v-for="site in sites" v-bind::key="site.id">
-                    <!-- <td class="collapsing">
+                    <td class="collapsing">
                         <div class="ui fitted checkbox">
-                            <input type="checkbox" @click="toggleChecked()"> <label></label>
+                            <input type="checkbox" @change="updateCheckList(site.id)" :checked="!!checkedData.includes(site.id)"> <label></label>
                         </div>
-                    </td> -->
+                    </td>
                     <td>{{ site.site_id }}</td>
-                    <td>{{ site.name }}</td>
+                    <td>{{ site.site_name }}</td>
                     <td>{{ site.lokasi }}</td>
                     <td class="center aligned">
-                        <b-button @click="viewModal(site.id.id)" class="ui detail primary basic button">Detail</b-button>
+                        <b-button @click="viewModal(site.id)" class="ui detail primary basic button">Detail</b-button>
                         <div class="ui buttons">
-                            <b-button @click="editModal(site.id.id)" class="ui positive button">Edit</b-button>
+                            <b-button @click="editModal(site.id)" class="ui positive button">Edit</b-button>
                         <div class="or"></div>
-                            <button class="ui negative button" @click="deleteSite(site.id.id)">Delete</button>
+                            <button class="ui negative button" @click="deleteSite(site.id)">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -179,7 +225,7 @@
             </div>
         </b-modal>
 
-        <b-modal ref="editFormRef" id="viewModal" size="lg" title="Update Record Details" hide-footer>
+        <b-modal ref="editFormRef" id="viewModal" size="lg" title hide-footer>
             <!-- <p class="my-4">Hello from modal</p> -->
             <form @submit.prevent="saveChanges(vsite.id)" class="ui form">
                     <div class="field">
@@ -210,181 +256,218 @@
                     <b-btn class="ui button" @click="hideModal">Close</b-btn>
                 </form>
         </b-modal>
+
     </div>
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
-import NProgress from 'nprogress'
-export default {
-    metaInfo: {
-        title: 'Site Management'
-    },
-    data() {
-        return {
-            sites: [],
-            vsites: [],
-            vsite: {
+
+    import { required, minLength } from 'vuelidate/lib/validators'
+    import NProgress from 'nprogress'
+
+    export default {
+        created() {
+            this.fetchSites();
+        },
+        metaInfo: {
+            title: 'Site Management'
+        },
+        data() {
+            return {
+                sites: [],
+                vsites: [],
+                vsite: {
+                    id: '',
+                    site_id: '',
+                    site_name: '',
+                    site_type: '',
+                    lokasi: '',
+                    description: '',
+                },
+                site: {
+                    site_id: '',
+                    site_name: '',
+                    site_type: 'default',
+                    lokasi: '',
+                    description: '',
+                },
+                filter: {
+                    operator: 'equal_to',
+                    site_name: ''
+                },
                 id: '',
-                site_id: '',
-                site_name: '',
-                site_type: '',
-                lokasi: '',
-                description: '',
-            },
+                pagination: {},
+                offset: 3,
+                edit: false,
+                checked: false,
+                error: false,
+                success: false,
+                loading: true,
+                modal: false,
+                add: false,
+                submitStatus: null,
+                title: '',
+                checkedData: [],
+                isAsc: false,
+            }
+        },
+        watch: {
+            filter: {
+                site_name(after, before) {
+                    this.fetchSites()
+                }
+            }
+        },
+        validations: {
             site: {
-                site_id: '',
-                site_name: '',
-                site_type: 'default',
-                lokasi: '',
-                description: '',
-            },
-            id: '',
-            pagination: {},
-            offset: 3,
-            edit: false,
-            checked: false,
-            error: false,
-            success: false,
-            loading: true,
-            modal: false,
-            add: false,
-            submitStatus: null,
-        }
-    },
-    validations: {
-        site: {
-            site_id: {
-                required,
-                minLength: minLength(6)
-            },
-            site_name: {
-                required,
-                minLength: minLength(6)                
-            },
-            site_type: {
-                required
-            },
-            lokasi: {
-                required
-            }
-        }
-    },
-    created() {
-        this.fetchSites();
-    },
-    computed: {
-        isActive: function() {
-            return this.pagination.current_page
-        },
-        pageNumber: function() {
-            if(!this.pagination.to) {
-                return []
-            }
-
-            var from = this.pagination.current_page - this.offset
-            if(from < 1) {
-                from = 1
-            }
-
-            var to = from + (this.offset * 2)
-            if(to > this.pagination.last_page) {
-                to = this.pagination.last_page
-            }
-
-            var pagesArray = [];
-            while(from <= to) {
-                pagesArray.push(from)
-                from++
-            }
-
-            return pagesArray
-        }
-    },
-    methods: {
-        fetchSites(page_url) {
-            this.loading = true
-            page_url = page_url || this.$api + 'site'
-            this.axios({
-                method: 'get',
-                url: page_url
-            })
-            .then(res => {
-                this.sites = res.data.data
-                this.makePagination(res.data.meta, res.data.links)
-                this.loading = false
-                NProgress.done()
-            }).catch(err => console.log(err))
-        },
-        addSite() {
-            this.$v.$touch()
-            if(this.$v.$invalid) {
-                this.submitStatus = 'ERROR'
-            }
-            this.submitStatus = 'PENDING'
-            let app = this
-            this.axios(this.$api + 'site', {
-                method: 'post',
-                body: JSON.stringify(app.site),
-                data: JSON.stringify(app.site),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + this.$auth.token()
+                site_id: {
+                    required,
+                    minLength: minLength(6)
+                },
+                site_name: {
+                    required,
+                    minLength: minLength(6)                
+                },
+                site_type: {
+                    required
+                },
+                lokasi: {
+                    required
                 }
-            })
-            .then(res => {
-                this.loading = true
-                app.success = true
-                this.loading = true
-                app.site.site_id = ''
-                app.site.site_name = ''
-                app.site.site_type = 'default'
-                app.site.lokasi = ''
-                app.site.description = ''       
-                this.error = false
-                this.submitStatus = 'OK'   
-                this.fetchSites()
-            })
-            .catch(err => {
-                app.error = true
-                this.submitStatus = null
-            })
+            }
         },
-        // viewSite(id) {
-        //     NProgress.start()
-            
-        //     .catch(err => console.log(err))
-        // },
-        saveChanges(id) {
-            let app = this
-            console.log(JSON.stringify(app.vsite))
-            NProgress.start();
-            this.axios({
-                method: 'put',
-                url: this.$api + `site/${id}`,
-                body: JSON.stringify(app.vsite),
-                data: JSON.stringify(app.vsite),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + this.$auth.token(),
+        computed: {
+            isActive: function() {
+                return this.pagination.current_page
+            },
+            pageNumber: function() {
+                if(!this.pagination.to) {
+                    return []
                 }
-            })
-            .then(res => {
-                this.fetchSites()
-                this.changePage(this.pagination.current_page)
-                NProgress.done()
-                this.$refs.editFormRef.hide()
-            })
-            .catch(err => console.log(err))
+
+                var from = this.pagination.current_page - this.offset
+                if(from < 1) {
+                    from = 1
+                }
+
+                var to = from + (this.offset * 2)
+                if(to > this.pagination.last_page) {
+                    to = this.pagination.last_page
+                }
+
+                var pagesArray = [];
+                while(from <= to) {
+                    pagesArray.push(from)
+                    from++
+                }
+
+                return pagesArray
+            }
         },
-        deleteSite(id) {
-            this.$dialog.confirm('Are you sure want to delete this record ?')
-            .then(res => {
+        methods: {
+            fetchSites(page_url) {
+                const app = this
+                this.loading = true
+                page_url = page_url || this.$api + 'site'
                 this.axios({
-                    method: 'delete',
+                    method: 'get',
+                    url: page_url
+                })
+                .then(res => {
+                    app.sites = res.data.data
+                    app.makePagination(res.data.meta, res.data.links)
+                    app.loading = false
+                    NProgress.done()
+                }).catch(err => console.log(err))
+            },
+            doFilter() {
+                if (this.filter.site_id != '') {
+                    this.loading = true
+                    this.axios({
+                        method: 'get',
+                        url: this.$api + 'site',
+                        params: {
+                            'f[0][column]': 'site_id',
+                            'f[0][operator]': this.filter.operator,
+                            'f[0][query_1]': this.filter.site_id,
+                        }
+                    })
+                    .then(res => {
+                        this.sites = []
+                        this.sites = res.data.data
+                        this.makePagination(res.data.meta, res.data.links)
+                        this.loading = false
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    this.fetchSites()
+                }
+            },
+            order(key) {
+                this.isAsc = !this.isAsc
+                this.axios({
+                    method: 'get',
+                    url: this.$api + 'site',
+                    params: {
+                        'order_column': key,
+                        'order_direction': this.order.isAsc = true ? 'asc' : 'desc'
+                    }
+                })
+                .then(res => {
+                    this.sites = []
+                    this.sites = res.data.data
+                    this.makePagination(res.data.meta, res.data.links)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            },
+            addSite() {
+                this.$v.$touch()
+                if(this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                }
+                this.submitStatus = 'PENDING'
+                let app = this
+                this.axios(this.$api + 'site', {
+                    method: 'post',
+                    body: JSON.stringify(app.site),
+                    data: JSON.stringify(app.site),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + this.$auth.token()
+                    }
+                })
+                .then(res => {
+                    this.loading = true
+                    app.success = true
+                    this.loading = true
+                    app.site.site_id = ''
+                    app.site.site_name = ''
+                    app.site.site_type = 'default'
+                    app.site.lokasi = ''
+                    app.site.description = ''       
+                    this.error = false
+                    this.submitStatus = 'OK'   
+                    this.fetchSites()
+                })
+                .catch(err => {
+                    app.error = true
+                    this.submitStatus = null
+                })
+            },
+            saveChanges(id) {
+                let app = this
+                console.log(JSON.stringify(app.vsite))
+                NProgress.start();
+                this.axios({
+                    method: 'put',
                     url: this.$api + `site/${id}`,
+                    body: JSON.stringify(app.vsite),
+                    data: JSON.stringify(app.vsite),
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
@@ -392,76 +475,137 @@ export default {
                     }
                 })
                 .then(res => {
-                    setTimeout(() => {
-                        console.log('Delete action completed ');
-                        dialog.close();
-                    }, 2500)
                     this.fetchSites()
                     this.changePage(this.pagination.current_page)
+                    NProgress.done()
+                    this.$refs.editFormRef.hide()
                 })
-                .catch(err => alert('Error ' + err))
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        },
-        makePagination(meta, links) {
-            let pagination = {
-                current_page: meta.current_page,
-                last_page: meta.last_page,
-                next_page_url: links.next,
-                prev_page_url: links.prev,
-                from: meta.from,
-                to: meta.to,
-                total: meta.total,
-                per_page: meta.per_page,
-            }
+                .catch(err => console.log(err))
+            },
+            deleteSite(id) {
+                this.$dialog.confirm('Are you sure want to delete this record ?')
+                .then(res => {
+                    this.axios({
+                        method: 'delete',
+                        url: this.$api + `site/${id}`,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + this.$auth.token(),
+                        }
+                    })
+                    .then(res => {
+                        setTimeout(() => {
+                            console.log('Delete action completed ');
+                            dialog.close();
+                        }, 2500)
+                        this.fetchSites()
+                        this.changePage(this.pagination.current_page)
+                    })
+                    .catch(err => alert('Error ' + err))
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            },
+            makePagination(meta, links) {
+                let pagination = {
+                    current_page: meta.current_page,
+                    last_page: meta.last_page,
+                    next_page_url: links.next,
+                    prev_page_url: links.prev,
+                    from: meta.from,
+                    to: meta.to,
+                    total: meta.total,
+                    per_page: meta.per_page,
+                }
 
-            this.pagination = pagination
-        },
-        changePage(page) {
-            this.pagination.current_page = page  
-            this.fetchSites(this.$api + 'site/?page=' + page)
-        },
-        viewModal(id) {
-            NProgress.start()
-            this.$refs.detailRef.show()
-            this.axios({
-                method: 'get',
-                url: this.$api + `site/${id}`,
-            })
-            .then(res => {
-                this.vsites = res.data
-                NProgress.done()
-            })
-        },
-        editModal(id) {
-            let app = this
-            NProgress.start()
-            this.$refs.editFormRef.show()
-            this.axios({
-                method: 'get',
-                url: this.$api + `site/${id}`,
-            })
-            .then(res => {
-                // app.vsite = res.data
-                app.vsite.id = res.data.id
-                app.vsite.site_id = res.data.site_id 
-                app.vsite.site_name = res.data.name
-                app.vsite.site_type = res.data.type
-                app.vsite.lokasi = res.data.lokasi 
-                app.vsite.description = res.data.description
-                NProgress.done()
-            })
-            .catch(err => console.log(err))
-        },
-        hideModal() {
-            this.$refs.detailRef.hide()
-            this.$refs.editFormRef.hide()
-            // this.vsite = []
-        },
+                this.pagination = pagination
+            },
+            changePage(page) {
+                this.pagination.current_page = page  
+                this.fetchSites(this.$api + 'site/?page=' + page)
+            },
+            viewModal(id) {
+                NProgress.start()
+                this.$refs.detailRef.show()
+                this.axios({
+                    method: 'get',
+                    url: this.$api + `site/${id}`,
+                })
+                .then(res => {
+                    this.vsites = res.data
+                    NProgress.done()
+                })
+            },
+            editModal(id) {
+                let app = this
+                NProgress.start()
+                this.$refs.editFormRef.show()
+                this.axios({
+                    method: 'get',
+                    url: this.$api + `site/${id}`,
+                })
+                .then(res => {
+                    app.title = res.data.site_id
+                    // app.vsite = res.data
+                    app.vsite.id = res.data.id
+                    app.vsite.site_id = res.data.site_id 
+                    app.vsite.site_name = res.data.name
+                    app.vsite.site_type = res.data.type
+                    app.vsite.lokasi = res.data.lokasi 
+                    app.vsite.description = res.data.description
+                    NProgress.done()
+                })
+                .catch(err => console.log(err))
+            },
+            hideModal() {
+                this.$refs.detailRef.hide()
+                this.$refs.editFormRef.hide()
+                // this.vsite = []
+            },
+            updateCheckList(id) {
+                if(this.checkedData.includes(id)) {
+                    let index = this.checkedData.indexOf(id)
+                    this.checkedData.splice(index, 1)
+                } else {
+                    this.checkedData.push(id)
+                }
+                console.log("Current selected objects : " + this.checkedData)
+                $("div.message-success").fadeIn(300).delay(300).fadeOut(400)
+            },
+            inArray(id) {
+                return this.checkedData.indexOf(id) > -1
+            },
+            deleteSelected() {
+                this.$dialog.confirm('Are you sure want to delete this ' + (this.checkedData.length > 1 ? 'records' : 'record') + ' ?')
+                .then(res => {
+                    NProgress.start()
+                    let selectedData = this.checkedData
+                    this.axios({
+                        url: 'site/delete-selected',
+                        method: 'delete',
+                        params: {
+                            'id': selectedData
+                        }
+                    })
+                    .then(res => {
+                        setTimeout(() => {
+                            dialog.close();
+                        }, 2500)
+                        this.fetchSites()
+                        this.changePage((this.pagination.current_page != '' ? this.pagination.current_page : this.pagination.last_page))
+                        console.log(this.pagination.current_page)
+                        this.checkedData = []
+                        NProgress.done()
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                })
+            }
+        }
     }
-}
 
 </script>
 

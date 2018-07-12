@@ -24,7 +24,10 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return SiteCollection::collection(Site::paginate(10));
+        return SiteCollection::collection(Site::advancedFilter());
+        // return response()->json([
+        //     'data' => Site::advancedFilter(10)
+        // ]);
     }
 
     /**

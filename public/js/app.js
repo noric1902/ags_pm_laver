@@ -22240,7 +22240,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -22308,20 +22308,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // <meta name="csrf-token" content="{{ csrf_token() }}">`
         { charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }]
     }
-
-    // semantic
-});$(function () {
-    $('.ui.dropdown').dropdown();
-    // $('.ui.checkbox').checkbox();
-    $('#show-sidebar').click(function () {
-        $('#show-sidebar').show();
-        $('.menu.sidebar').sidebar('toggle');
-    });
-
-    $('#hide-sidebar').click(function () {
-        $('#show-sidebar').show();
-        $('.menu.sidebar').sidebar('toggle');
-    });
 });
 
 /***/ }),
@@ -27476,7 +27462,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27706,10 +27692,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.fetchSites();
+    },
+
     metaInfo: {
         title: 'Site Management'
     },
@@ -27732,6 +27771,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lokasi: '',
                 description: ''
             },
+            filter: {
+                operator: 'equal_to',
+                site_name: ''
+            },
             id: '',
             pagination: {},
             offset: 3,
@@ -27742,10 +27785,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: true,
             modal: false,
             add: false,
-            submitStatus: null
+            submitStatus: null,
+            title: '',
+            checkedData: [],
+            isAsc: false
         };
     },
 
+    watch: {
+        filter: {
+            site_name: function site_name(after, before) {
+                this.fetchSites();
+            }
+        }
+    },
     validations: {
         site: {
             site_id: {
@@ -27764,10 +27817,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         }
     },
-    created: function created() {
-        this.fetchSites();
-    },
-
     computed: {
         isActive: function isActive() {
             return this.pagination.current_page;
@@ -27798,24 +27847,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         fetchSites: function fetchSites(page_url) {
-            var _this = this;
-
+            var app = this;
             this.loading = true;
             page_url = page_url || this.$api + 'site';
             this.axios({
                 method: 'get',
                 url: page_url
             }).then(function (res) {
-                _this.sites = res.data.data;
-                _this.makePagination(res.data.meta, res.data.links);
-                _this.loading = false;
+                app.sites = res.data.data;
+                app.makePagination(res.data.meta, res.data.links);
+                app.loading = false;
                 __WEBPACK_IMPORTED_MODULE_1_nprogress___default.a.done();
             }).catch(function (err) {
                 return console.log(err);
             });
         },
-        addSite: function addSite() {
+        doFilter: function doFilter() {
+            var _this = this;
+
+            if (this.filter.site_id != '') {
+                this.loading = true;
+                this.axios({
+                    method: 'get',
+                    url: this.$api + 'site',
+                    params: {
+                        'f[0][column]': 'site_id',
+                        'f[0][operator]': this.filter.operator,
+                        'f[0][query_1]': this.filter.site_id
+                    }
+                }).then(function (res) {
+                    _this.sites = [];
+                    _this.sites = res.data.data;
+                    _this.makePagination(res.data.meta, res.data.links);
+                    _this.loading = false;
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            } else {
+                this.fetchSites();
+            }
+        },
+        order: function order(key) {
             var _this2 = this;
+
+            this.isAsc = !this.isAsc;
+            this.axios({
+                method: 'get',
+                url: this.$api + 'site',
+                params: {
+                    'order_column': key,
+                    'order_direction': this.order.isAsc = true ? 'asc' : 'desc'
+                }
+            }).then(function (res) {
+                _this2.sites = [];
+                _this2.sites = res.data.data;
+                _this2.makePagination(res.data.meta, res.data.links);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        addSite: function addSite() {
+            var _this3 = this;
 
             this.$v.$touch();
             if (this.$v.$invalid) {
@@ -27833,30 +27925,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'Authorization': 'Bearer ' + this.$auth.token()
                 }
             }).then(function (res) {
-                _this2.loading = true;
+                _this3.loading = true;
                 app.success = true;
-                _this2.loading = true;
+                _this3.loading = true;
                 app.site.site_id = '';
                 app.site.site_name = '';
                 app.site.site_type = 'default';
                 app.site.lokasi = '';
                 app.site.description = '';
-                _this2.error = false;
-                _this2.submitStatus = 'OK';
-                _this2.fetchSites();
+                _this3.error = false;
+                _this3.submitStatus = 'OK';
+                _this3.fetchSites();
             }).catch(function (err) {
                 app.error = true;
-                _this2.submitStatus = null;
+                _this3.submitStatus = null;
             });
         },
-
-        // viewSite(id) {
-        //     NProgress.start()
-
-        //     .catch(err => console.log(err))
-        // },
         saveChanges: function saveChanges(id) {
-            var _this3 = this;
+            var _this4 = this;
 
             var app = this;
             console.log(JSON.stringify(app.vsite));
@@ -27872,33 +27958,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'Authorization': 'Bearer ' + this.$auth.token()
                 }
             }).then(function (res) {
-                _this3.fetchSites();
-                _this3.changePage(_this3.pagination.current_page);
+                _this4.fetchSites();
+                _this4.changePage(_this4.pagination.current_page);
                 __WEBPACK_IMPORTED_MODULE_1_nprogress___default.a.done();
-                _this3.$refs.editFormRef.hide();
+                _this4.$refs.editFormRef.hide();
             }).catch(function (err) {
                 return console.log(err);
             });
         },
         deleteSite: function deleteSite(id) {
-            var _this4 = this;
+            var _this5 = this;
 
             this.$dialog.confirm('Are you sure want to delete this record ?').then(function (res) {
-                _this4.axios({
+                _this5.axios({
                     method: 'delete',
-                    url: _this4.$api + ('site/' + id),
+                    url: _this5.$api + ('site/' + id),
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + _this4.$auth.token()
+                        'Authorization': 'Bearer ' + _this5.$auth.token()
                     }
                 }).then(function (res) {
                     setTimeout(function () {
                         console.log('Delete action completed ');
                         dialog.close();
                     }, 2500);
-                    _this4.fetchSites();
-                    _this4.changePage(_this4.pagination.current_page);
+                    _this5.fetchSites();
+                    _this5.changePage(_this5.pagination.current_page);
                 }).catch(function (err) {
                     return alert('Error ' + err);
                 });
@@ -27925,7 +28011,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.fetchSites(this.$api + 'site/?page=' + page);
         },
         viewModal: function viewModal(id) {
-            var _this5 = this;
+            var _this6 = this;
 
             __WEBPACK_IMPORTED_MODULE_1_nprogress___default.a.start();
             this.$refs.detailRef.show();
@@ -27933,7 +28019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 method: 'get',
                 url: this.$api + ('site/' + id)
             }).then(function (res) {
-                _this5.vsites = res.data;
+                _this6.vsites = res.data;
                 __WEBPACK_IMPORTED_MODULE_1_nprogress___default.a.done();
             });
         },
@@ -27945,6 +28031,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 method: 'get',
                 url: this.$api + ('site/' + id)
             }).then(function (res) {
+                app.title = res.data.site_id;
                 // app.vsite = res.data
                 app.vsite.id = res.data.id;
                 app.vsite.site_id = res.data.site_id;
@@ -27961,6 +28048,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.detailRef.hide();
             this.$refs.editFormRef.hide();
             // this.vsite = []
+        },
+        updateCheckList: function updateCheckList(id) {
+            if (this.checkedData.includes(id)) {
+                var index = this.checkedData.indexOf(id);
+                this.checkedData.splice(index, 1);
+            } else {
+                this.checkedData.push(id);
+            }
+            console.log("Current selected objects : " + this.checkedData);
+            $("div.message-success").fadeIn(300).delay(300).fadeOut(400);
+        },
+        inArray: function inArray(id) {
+            return this.checkedData.indexOf(id) > -1;
+        },
+        deleteSelected: function deleteSelected() {
+            var _this7 = this;
+
+            this.$dialog.confirm('Are you sure want to delete this ' + (this.checkedData.length > 1 ? 'records' : 'record') + ' ?').then(function (res) {
+                __WEBPACK_IMPORTED_MODULE_1_nprogress___default.a.start();
+                var selectedData = _this7.checkedData;
+                _this7.axios({
+                    url: 'site/delete-selected',
+                    method: 'delete',
+                    params: {
+                        'id': selectedData
+                    }
+                }).then(function (res) {
+                    setTimeout(function () {
+                        dialog.close();
+                    }, 2500);
+                    _this7.fetchSites();
+                    _this7.changePage(_this7.pagination.current_page != '' ? _this7.pagination.current_page : _this7.pagination.last_page);
+                    console.log(_this7.pagination.current_page);
+                    _this7.checkedData = [];
+                    __WEBPACK_IMPORTED_MODULE_1_nprogress___default.a.done();
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            });
         }
     }
 });
@@ -28740,8 +28866,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
-      _vm._v(" "),
       _c("div"),
       _vm._v(" "),
       _c("hr"),
@@ -28776,14 +28900,18 @@ var render = function() {
         [_c("i", { staticClass: "sync icon" }), _vm._v(" Reload Data\n    ")]
       ),
       _vm._v(" "),
+      _c("button", { staticClass: "ui button" }, [
+        _vm._v("\n        Show Advanced Filter\n    ")
+      ]),
+      _vm._v(" "),
       _c(
         "button",
         {
           staticClass: "ui negative button right floated",
-          class: [{ disabled: !_vm.checked == true }],
+          class: [{ disabled: _vm.checkedData == "" }],
           on: {
             click: function($event) {
-              _vm.fetchSites(_vm.pagination.current_page)
+              _vm.deleteSelected()
             }
           }
         },
@@ -28792,6 +28920,123 @@ var render = function() {
           _vm._v(" Delete Selected\n    ")
         ]
       ),
+      _vm._v(" "),
+      _vm.checkedData != ""
+        ? _c("button", { staticClass: "ui button right floated" }, [
+            _c("div", { staticClass: "ui simple dropdown item" }, [
+              _c("div", { staticClass: "text" }, [_vm._v("...")]),
+              _vm._v(" "),
+              _c("i", { staticClass: "dropdown icon" }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "menu" },
+                _vm._l(_vm.checkedData, function(data) {
+                  return _c("span", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(data) +
+                        "\n                "
+                    )
+                  ])
+                })
+              )
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("div", [
+        _c("form", { staticClass: "ui form", attrs: { action: "" } }, [
+          _c("div", { staticClass: "fields" }, [
+            _c("div", { staticClass: "three wide field" }, [
+              _c("label", { attrs: { for: "" } }, [_vm._v("Operator")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.operator,
+                        expression: "filter.operator"
+                      }
+                    ],
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "operator",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          _vm.doFilter()
+                        }
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "equal_to" } }, [
+                      _vm._v("Equal to (=)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "contains" } }, [
+                      _vm._v("Contains (%)")
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "field", staticStyle: { width: "100%" } },
+              [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Site ID")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.filter.site_id,
+                      expression: "filter.site_id"
+                    }
+                  ],
+                  attrs: { type: "text", placeholder: "Type here to find" },
+                  domProps: { value: _vm.filter.site_id },
+                  on: {
+                    keyup: function($event) {
+                      _vm.doFilter()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.filter, "site_id", $event.target.value)
+                    }
+                  }
+                })
+              ]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { class: [_vm.add == true ? "show" : "hide"] }, [
         _c("hr"),
@@ -28975,6 +29220,7 @@ var render = function() {
                       modifiers: { trim: true }
                     }
                   ],
+                  staticClass: "ui dropdown",
                   on: {
                     change: [
                       function($event) {
@@ -29195,7 +29441,52 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("tr", [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "th",
+              {
+                staticStyle: { cursor: "pointer" },
+                on: {
+                  click: function($event) {
+                    _vm.order("site_id")
+                  }
+                }
+              },
+              [_vm._v("Site ID")]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              {
+                staticStyle: { cursor: "pointer" },
+                on: {
+                  click: function($event) {
+                    _vm.order("site_name")
+                  }
+                }
+              },
+              [_vm._v("Site Name")]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              {
+                staticStyle: { cursor: "pointer" },
+                on: {
+                  click: function($event) {
+                    _vm.order("lokasi")
+                  }
+                }
+              },
+              [_vm._v("Location")]
+            ),
+            _vm._v(" "),
+            _c("th", { attrs: { width: "300" } }, [
+              _vm._v("\n                    Action\n                ")
+            ])
+          ])
         ]),
         _vm._v(" "),
         !_vm.loading
@@ -29203,9 +29494,27 @@ var render = function() {
               "tbody",
               _vm._l(_vm.sites, function(site) {
                 return _c("tr", { attrs: { ":key": site.id } }, [
+                  _c("td", { staticClass: "collapsing" }, [
+                    _c("div", { staticClass: "ui fitted checkbox" }, [
+                      _c("input", {
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: !!_vm.checkedData.includes(site.id)
+                        },
+                        on: {
+                          change: function($event) {
+                            _vm.updateCheckList(site.id)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label")
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(site.site_id))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(site.name))]),
+                  _c("td", [_vm._v(_vm._s(site.site_name))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(site.lokasi))]),
                   _vm._v(" "),
@@ -29219,7 +29528,7 @@ var render = function() {
                           staticClass: "ui detail primary basic button",
                           on: {
                             click: function($event) {
-                              _vm.viewModal(site.id.id)
+                              _vm.viewModal(site.id)
                             }
                           }
                         },
@@ -29236,7 +29545,7 @@ var render = function() {
                               staticClass: "ui positive button",
                               on: {
                                 click: function($event) {
-                                  _vm.editModal(site.id.id)
+                                  _vm.editModal(site.id)
                                 }
                               }
                             },
@@ -29251,7 +29560,7 @@ var render = function() {
                               staticClass: "ui negative button",
                               on: {
                                 click: function($event) {
-                                  _vm.deleteSite(site.id.id)
+                                  _vm.deleteSite(site.id)
                                 }
                               }
                             },
@@ -29271,7 +29580,7 @@ var render = function() {
         _c("tfoot", [
           _c("tr", [
             _c("th", { attrs: { colspan: "5" } }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "div",
@@ -29419,12 +29728,7 @@ var render = function() {
         "b-modal",
         {
           ref: "editFormRef",
-          attrs: {
-            id: "viewModal",
-            size: "lg",
-            title: "Update Record Details",
-            "hide-footer": ""
-          }
+          attrs: { id: "viewModal", size: "lg", title: "", "hide-footer": "" }
         },
         [
           _c(
@@ -29617,32 +29921,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("form", { staticClass: "ui form", attrs: { action: "" } }, [
-        _c("div", { staticClass: "field" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Site Name")]),
-          _vm._v(" "),
-          _c("input", { attrs: { type: "text", name: "site_name" } })
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "ui button" }, [_vm._v("Find")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Site ID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Site Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Location")]),
-      _vm._v(" "),
-      _c("th", { attrs: { width: "300" } }, [
-        _vm._v("\n                    Action\n                ")
-      ])
+    return _c("th", { staticClass: "center aligned" }, [
+      _c("i", { staticClass: "check icon" })
     ])
   },
   function() {
