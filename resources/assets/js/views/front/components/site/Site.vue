@@ -27,7 +27,7 @@
         <button class="ui button" @click="changePage(pagination.current_page)">
             <i class="sync icon"></i> Reload Data
         </button>
-        <button class="ui button">
+        <button class="ui button" @click="advanceFilter=!advanceFilter">
             Show Advanced Filter
         </button>
         <button v-bind:class="[{ disabled: checkedData == '' }]" class="ui negative button right floated" @click="deleteSelected()">
@@ -44,23 +44,20 @@
                 </div>
             </div>
         </button>
-        <hr>
-        <div>
-            <form action="" class="ui form">
-                <div class="fields">
-                    <div class="three wide field">
-                        <label for="">Operator</label>
-                        <div class="field">
-                            <select @change="doFilter()" v-model="filter.operator">
-                                <option value="equal_to">Equal to (=)</option>
-                                <option value="contains">Contains (%)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field" style="width:100%">
-                        <label for="">Site ID</label>
-                        <input v-on:keyup="doFilter()" type="text" v-model="filter.site_id" placeholder="Type here to find">
-                    </div>
+        
+        <div v-if="advanceFilter">
+            <hr>
+            <form @submit.prevent="advancedFilter" class="ui form">
+                <div class="field">
+                    <label for="">Site ID</label>
+                    <input type="text" v-model="filters[0].query_1">
+                </div>
+                <div class="field">
+                    <label for="">Site Name</label>
+                    <input type="text" v-model="filters[1].query_1">
+                </div>
+                <div class="field">
+                    <button class="ui button positive">Apply Filters</button>
                 </div>
             </form>
         </div>
@@ -127,6 +124,36 @@
             <hr>
         </div>
 
+        <hr>
+        <form action="" class="ui form">
+            <div class="fields">
+                <div class="three wide field">
+                    <label for="">Operator</label>
+                    <div class="field">
+                        <select @change="doFilter()" v-model="filter.operator">
+                            <option value="equal_to">Equal to (=)</option>
+                            <option value="contains">Contains (%)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field" style="width:100%">
+                    <label for="">Site ID</label>
+                    <input v-on:keyup="doFilter()" type="text" v-model="filter.globalSearch" placeholder="Type here to find">
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div>
+            <select class="ui dropdown" v-model="paging.limit" :disabled="loading" @change="changeLimit">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+            <span style="padding-left: 10px">Showing row {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} total entries.</span>
+        </div>
+
+        <!-- <site-data></site-data> -->
         <table class="ui unstackable table">
             <thead>
                 <tr v-bind:class="[ loading==false ? 'hide' : '' ]">
@@ -135,7 +162,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="center aligned">
+                    <th style="cursor: pointer" class="center aligned" @click="selectAll()">
                         <i class="check icon"></i>
                     </th>
                     <th style="cursor: pointer" @click="order('site_id')">Site ID</th>
@@ -147,15 +174,15 @@
                 </tr>
             </thead>
             <tbody v-if="!loading">
-                <tr v-for="site in sites" v-bind::key="site.id">
+                <tr v-for="site in sites" :key="site.id">
                     <td class="collapsing">
                         <div class="ui fitted checkbox">
                             <input type="checkbox" @change="updateCheckList(site.id)" :checked="!!checkedData.includes(site.id)"> <label></label>
                         </div>
                     </td>
-                    <td>{{ site.site_id }}</td>
-                    <td>{{ site.site_name }}</td>
-                    <td>{{ site.lokasi }}</td>
+                    <td>{{ site.site_id | highlight(filter.globalSearch) }}</td>
+                    <td>{{ site.site_name | highlight(filter.globalSearch) }}</td>
+                    <td>{{ site.lokasi | highlight(filter.globalSearch) }}</td>
                     <td class="center aligned">
                         <b-button @click="viewModal(site.id)" class="ui detail primary basic button">Detail</b-button>
                         <div class="ui buttons">
@@ -180,11 +207,11 @@
                     <li class="item">
                         Showing page {{ pagination.current_page }} of {{ pagination.last_page }}
                     </li>
-                    <li v-bind:class="[{ disabled: pagination.prev_page_url == null }]" class="icon item" @click="fetchSites(pagination.prev_page_url)">
+                    <li :class="[{ disabled: pagination.prev_page_url == null }]" class="icon item" @click="fetchSites(pagination.prev_page_url)">
                         <i class="left chevron icon"></i>
                     </li>
                     <li v-for="page in pageNumber">
-                        <a v-bind:class="[page == isActive ? 'active' : '']" @click.prevent="changePage(page)" class="item">
+                        <a :class="[page == isActive ? 'active' : '']" @click.prevent="changePage(page)" class="item">
                             {{ page }}
                         </a>
                     </li>
@@ -262,6 +289,7 @@
 
 <script>
 
+    import Data from '../site/Data'
     import { required, minLength } from 'vuelidate/lib/validators'
     import NProgress from 'nprogress'
 
@@ -293,10 +321,18 @@
                 },
                 filter: {
                     operator: 'equal_to',
-                    site_name: ''
+                    site_id: '',
+                    globalSearch: ''
                 },
+                filters: [
+                    {column: 'site_id', operator: 'contains', query_1: ''},
+                    {column: 'site_name', operator: 'contains', query_1: ''},
+                ],
                 id: '',
                 pagination: {},
+                paging: {
+                    limit: 10
+                },
                 offset: 3,
                 edit: false,
                 checked: false,
@@ -305,10 +341,16 @@
                 loading: true,
                 modal: false,
                 add: false,
+                advanceFilter: false,
                 submitStatus: null,
                 title: '',
                 checkedData: [],
-                isAsc: false,
+                checkAll: false,
+                orderableBy: {
+                    site_id: false,
+                    site_name: false,
+                    lokasi: false,
+                }
             }
         },
         watch: {
@@ -377,19 +419,22 @@
                     app.sites = res.data.data
                     app.makePagination(res.data.meta, res.data.links)
                     app.loading = false
-                    NProgress.done()
                 }).catch(err => console.log(err))
+                .finally(() => {
+                    NProgress.done()
+                })
             },
             doFilter() {
-                if (this.filter.site_id != '') {
+                if (this.filter.globalSearch != '') {
                     this.loading = true
                     this.axios({
                         method: 'get',
                         url: this.$api + 'site',
                         params: {
-                            'f[0][column]': 'site_id',
-                            'f[0][operator]': this.filter.operator,
-                            'f[0][query_1]': this.filter.site_id,
+                            // 'f[0][column]': 'site_id',
+                            // 'f[0][operator]': this.filter.operator,
+                            // 'f[0][query_1]': this.filter.site_id,
+                            'f[0][any]': this.filter.globalSearch
                         }
                     })
                     .then(res => {
@@ -405,14 +450,59 @@
                     this.fetchSites()
                 }
             },
+            advancedFilter() {
+
+                this.filters.forEach(element => {
+                    console.log(element)
+                });
+
+                const params = {
+                    ...this.filters
+                }
+
+                this.axios({
+                    method: 'get',
+                    url: this.$api + 'site',
+                    params: {
+                        // this.filters.forEach(element => {
+                            
+                        // });
+                    }
+                })
+                .then(res => {
+                    console.log(res.data.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            },
+            changeLimit() {
+                this.loading = true
+                this.axios({
+                    method: 'get',
+                    url: this.$api + 'site',
+                    params: {
+                        'limit': this.paging.limit
+                    }
+                })
+                .then(res => {
+                    this.sites = []
+                    this.sites = res.data.data
+                    this.makePagination(res.data.meta, res.data.links)
+                    this.loading = false
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            },
             order(key) {
-                this.isAsc = !this.isAsc
+                this.orderableBy[key] = !this.orderableBy[key]
                 this.axios({
                     method: 'get',
                     url: this.$api + 'site',
                     params: {
                         'order_column': key,
-                        'order_direction': this.order.isAsc = true ? 'asc' : 'desc'
+                        'order_direction': this.orderableBy[key] ? 'asc' : 'desc'
                     }
                 })
                 .then(res => {
@@ -565,6 +655,7 @@
                 // this.vsite = []
             },
             updateCheckList(id) {
+                this.checkAll = false
                 if(this.checkedData.includes(id)) {
                     let index = this.checkedData.indexOf(id)
                     this.checkedData.splice(index, 1)
@@ -602,6 +693,43 @@
                     .catch(err => {
                         console.log(err)
                     })
+                })
+            },
+            selectAll() {
+                this.checkAll = !this.checkAll
+                this.axios({
+                    method: 'get',
+                    url: this.$api + 'site',
+                    params: {
+                        'limit': this.pagination.total
+                    }
+                })
+                .then(res => {
+                    this.vsites = []
+                    this.vsites = res.data.data
+                    // this.makePagination(res.data.meta, res.data.links)
+                    this.vsites.forEach(value => {
+                        // console.log(value.id)
+                        if(this.checkAll) {
+                            this.checkedData.push(value.id)
+                        } else {
+                            this.checkedData = []
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            }
+        },
+        components: {
+            siteData: Data
+        },
+        filters: {
+            highlight(word, query) {
+                var iQuery = new RegExp(query, 'ig')
+                return word.toString().replace(query, function(matchedText, a, b) {
+                    return ('<span style="color:#ff0000">' + matchedText + '</span>')
                 })
             }
         }

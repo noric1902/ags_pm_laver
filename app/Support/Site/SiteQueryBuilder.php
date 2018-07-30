@@ -16,9 +16,22 @@ class SiteQueryBuilder {
     }
 
     protected function makeFilter($query, $filter) {
-        $this->{
-            camel_case($filter['operator'])
-        }($filter, $query);
+        if(isset($filter['operator'])) {
+            $this->{
+                camel_case($filter['operator'])
+            }($filter, $query);
+        }
+        $this->searchAny($filter, $query);
+    }
+
+    public function searchAny($filter, $query) {
+        return $query->where('id', 'like', '%' . $filter['any'] . '%')
+                     ->orWhere('site_id', 'like', '%' . $filter['any'] . '%')
+                     ->orWhere('site_type', 'like', '%' . $filter['any'] . '%')
+                     ->orWhere('site_name', 'like', '%' . $filter['any'] . '%')
+                     ->orWhere('lokasi', 'like', '%' . $filter['any'] . '%')
+                     ->orWhere('description', 'like', '%' . $filter['any'] . '%')
+                     ;
     }
 
     public function contains($filter, $query) {

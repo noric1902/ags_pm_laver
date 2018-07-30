@@ -13,7 +13,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" class="form-control" v-model="password" required>
+                        <input type="password" id="password" class="form-control" v-model.lazy="password" required>
                     </div>
                     <div class="inline field">
                         <div class="ui toggle checkbox">

@@ -24,7 +24,7 @@ class PengajuanController extends Controller
      */
     public function index()
     {
-        return PengajuanCollection::collection(Pengajuan::paginate(10));
+        return PengajuanCollection::collection(Pengajuan::advancedFilter());
     }
 
     /**

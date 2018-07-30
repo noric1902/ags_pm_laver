@@ -22,10 +22,11 @@ trait SiteDataviewer {
             'order_direction' => 'sometimes|required|in:asc,desc',
             'limit' => 'sometimes|required|integer|min:1',
             'filter_match' => 'sometimes|required|in:and,or',
-            'f' => 'sometimes|required|array',
-            'f.*.column' => 'required|in:'.$this->allowedColumns(),
+            'f' => 'sometimes|array',
+            'f.*.column' => 'in:'.$this->allowedColumns(),
             'f.*.operator' => 'required_with:f.*.column|in:'.$this->allowedOperators(),
-            'f.*.query_1' => 'required',
+            'f.*.query_1' => 'required_with:f.*.column',
+            'any' => 'sometimes|required_with:f',
         ];
 
         $v = Validator::make($data, $rules);

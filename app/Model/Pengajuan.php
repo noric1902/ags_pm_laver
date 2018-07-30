@@ -9,9 +9,12 @@ use App\Model\Project;
 use App\Model\Kategori;
 use App\Model\Pekerjaan;
 use Illuminate\Database\Eloquent\Model;
+use App\Support\Submission\SubmissionDataviewer;
 
 class Pengajuan extends Model
 {
+    use SubmissionDataviewer;
+
     protected $table    = 'pengajuan';
     protected $fillable = [
         'deskripsi', 
