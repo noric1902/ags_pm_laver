@@ -27572,7 +27572,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.highlightedSearch {\n    font-weight: bold;\n    background-color: yellow;\n}\n", ""]);
 
 // exports
 
@@ -27591,6 +27591,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nprogress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nprogress__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -27914,9 +27936,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 description: ''
             },
             filter: {
-                operator: 'equal_to',
+                operator: 'contains',
                 site_id: '',
-                globalSearch: ''
+                globalSearch: '',
+                column: 'all'
             },
             filters: [{ column: 'site_id', operator: 'contains', query_1: '' }, { column: 'site_name', operator: 'contains', query_1: '' }],
             id: '',
@@ -27941,17 +27964,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 site_id: false,
                 site_name: false,
                 lokasi: false
-            }
+            },
+            notFoundMessage: false
         };
     },
 
-    watch: {
-        filter: {
-            site_name: function site_name(after, before) {
-                this.fetchSites();
-            }
-        }
-    },
+    watch: {},
     validations: {
         site: {
             site_id: {
@@ -28028,18 +28046,28 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         // 'f[0][column]': 'site_id',
                         // 'f[0][operator]': this.filter.operator,
                         // 'f[0][query_1]': this.filter.site_id,
-                        'f[0][any]': this.filter.globalSearch
+                        'f[0][any]': this.filter.globalSearch,
+                        'f[0][operator]': this.filter.operator,
+                        'f[0][column]': this.filter.column != 'all' ? this.filter.column : 'all'
                     }
                 }).then(function (res) {
-                    _this.sites = [];
-                    _this.sites = res.data.data;
-                    _this.makePagination(res.data.meta, res.data.links);
+                    if (res.data.data.length > 0) {
+                        _this.notFoundMessage = false;
+                        _this.sites = [];
+                        _this.sites = res.data.data;
+                        _this.makePagination(res.data.meta, res.data.links);
+                    } else {
+                        _this.sites = [];
+                        _this.notFoundMessage = true;
+                        _this.makePagination(res.data.meta, res.data.links);
+                    }
                     _this.loading = false;
                 }).catch(function (err) {
                     console.log(err);
                 });
             } else {
                 this.fetchSites();
+                this.notFoundMessage = false;
             }
         },
         advancedFilter: function advancedFilter() {
@@ -28310,19 +28338,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }).catch(function (err) {
                 console.log(err);
             });
+        },
+        highlight: function highlight(word, query) {
+            var iQuery = new RegExp(query, 'ig');
+            return word.toString().replace(iQuery, function (matchedText, a, b) {
+                return '<span class=\'highlightedSearch\'>' + matchedText + '</span>';
+            });
         }
     },
     components: {
         siteData: __WEBPACK_IMPORTED_MODULE_0__site_Data___default.a
     },
-    filters: {
-        highlight: function highlight(word, query) {
-            var iQuery = new RegExp(query, 'ig');
-            return word.toString().replace(query, function (matchedText, a, b) {
-                return '<span style="color:#ff0000">' + matchedText + '</span>';
-            });
-        }
-    }
+    filters: {}
 });
 
 /***/ }),
@@ -29254,6 +29281,66 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Site Type")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.filters[2].query1,
+                          expression: "filters[2].query1"
+                        }
+                      ],
+                      staticClass: "ui dropdown",
+                      attrs: { name: "", id: "" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filters[2],
+                            "query1",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "option",
+                        {
+                          attrs: {
+                            value: "default",
+                            selected: "",
+                            disabled: ""
+                          }
+                        },
+                        [_vm._v("TOWER TYPE")]
+                      ),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "tower" } }, [
+                        _vm._v("Tower")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "telkom" } }, [
+                        _vm._v("Telkom")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
                 _vm._m(0)
               ]
             )
@@ -29650,6 +29737,67 @@ var render = function() {
       _c("form", { staticClass: "ui form", attrs: { action: "" } }, [
         _c("div", { staticClass: "fields" }, [
           _c("div", { staticClass: "three wide field" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Column")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "field" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.filter.column,
+                      expression: "filter.column"
+                    }
+                  ],
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.filter,
+                          "column",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        _vm.doFilter()
+                      }
+                    ]
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "all" } }, [
+                    _vm._v("All Column")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "site_id" } }, [
+                    _vm._v("Site ID")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "site_name" } }, [
+                    _vm._v("Site Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "lokasi" } }, [
+                    _vm._v("Site Location")
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "three wide field" }, [
             _c("label", { attrs: { for: "" } }, [_vm._v("Operator")]),
             _vm._v(" "),
             _c("div", { staticClass: "field" }, [
@@ -29690,12 +29838,12 @@ var render = function() {
                   }
                 },
                 [
-                  _c("option", { attrs: { value: "equal_to" } }, [
-                    _vm._v("Equal to (=)")
-                  ]),
-                  _vm._v(" "),
                   _c("option", { attrs: { value: "contains" } }, [
                     _vm._v("Contains (%)")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "equal_to" } }, [
+                    _vm._v("Equal to (=)")
                   ])
                 ]
               )
@@ -29703,7 +29851,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field", staticStyle: { width: "100%" } }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Site ID")]),
+            _c("label", { attrs: { for: "" } }, [_vm._v("Keyword")]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -29874,115 +30022,122 @@ var render = function() {
         !_vm.loading
           ? _c(
               "tbody",
-              _vm._l(_vm.sites, function(site) {
-                return _c("tr", { key: site.id }, [
-                  _c("td", { staticClass: "collapsing" }, [
-                    _c("div", { staticClass: "ui fitted checkbox" }, [
-                      _c("input", {
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: !!_vm.checkedData.includes(site.id)
-                        },
-                        on: {
-                          change: function($event) {
-                            _vm.updateCheckList(site.id)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("label")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _vm._v(
-                      _vm._s(
-                        _vm._f("highlight")(
-                          site.site_id,
-                          _vm.filter.globalSearch
-                        )
-                      )
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _vm._v(
-                      _vm._s(
-                        _vm._f("highlight")(
-                          site.site_name,
-                          _vm.filter.globalSearch
-                        )
-                      )
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _vm._v(
-                      _vm._s(
-                        _vm._f("highlight")(
-                          site.lokasi,
-                          _vm.filter.globalSearch
-                        )
-                      )
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    { staticClass: "center aligned" },
-                    [
+              [
+                _vm.notFoundMessage
+                  ? _c("tr", [
                       _c(
-                        "b-button",
+                        "td",
                         {
-                          staticClass: "ui detail primary basic button",
+                          staticStyle: { "text-align": "center" },
+                          attrs: { colspan: "5" }
+                        },
+                        [_vm._v("Data not found")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.sites, function(site) {
+                  return _c("tr", { key: site.id }, [
+                    _c("td", { staticClass: "collapsing" }, [
+                      _c("div", { staticClass: "ui fitted checkbox" }, [
+                        _c("input", {
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: !!_vm.checkedData.includes(site.id)
+                          },
                           on: {
-                            click: function($event) {
-                              _vm.viewModal(site.id)
+                            change: function($event) {
+                              _vm.updateCheckList(site.id)
                             }
                           }
-                        },
-                        [_vm._v("Detail")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "ui buttons" },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              staticClass: "ui positive button",
-                              on: {
-                                click: function($event) {
-                                  _vm.editModal(site.id)
-                                }
+                        }),
+                        _vm._v(" "),
+                        _c("label")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: {
+                        innerHTML: _vm._s(
+                          _vm.highlight(site.site_id, _vm.filter.globalSearch)
+                        )
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: {
+                        innerHTML: _vm._s(
+                          _vm.highlight(site.site_name, _vm.filter.globalSearch)
+                        )
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: {
+                        innerHTML: _vm._s(
+                          _vm.highlight(site.lokasi, _vm.filter.globalSearch)
+                        )
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "center aligned" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            staticClass: "ui detail primary basic button",
+                            on: {
+                              click: function($event) {
+                                _vm.viewModal(site.id)
                               }
-                            },
-                            [_vm._v("Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "or" }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "ui negative button",
-                              on: {
-                                click: function($event) {
-                                  _vm.deleteSite(site.id)
+                            }
+                          },
+                          [_vm._v("Detail")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "ui buttons" },
+                          [
+                            _c(
+                              "b-button",
+                              {
+                                staticClass: "ui positive button",
+                                on: {
+                                  click: function($event) {
+                                    _vm.editModal(site.id)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("Delete")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              })
+                              },
+                              [_vm._v("Edit")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "or" }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "ui negative button",
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteSite(site.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("Delete")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                })
+              ],
+              2
             )
           : _vm._e(),
         _vm._v(" "),

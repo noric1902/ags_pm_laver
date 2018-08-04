@@ -57,6 +57,14 @@
                     <input type="text" v-model="filters[1].query_1">
                 </div>
                 <div class="field">
+                    <label for="">Site Type</label>
+                    <select name="" id="" class="ui dropdown" v-model="filters[2].query1">
+                        <option value="default" selected disabled>TOWER TYPE</option>
+                        <option value="tower">Tower</option>
+                        <option value="telkom">Telkom</option>
+                    </select>
+                </div>
+                <div class="field">
                     <button class="ui button positive">Apply Filters</button>
                 </div>
             </form>
@@ -128,16 +136,27 @@
         <form action="" class="ui form">
             <div class="fields">
                 <div class="three wide field">
+                    <label for="">Column</label>
+                    <div class="field">
+                        <select @change="doFilter()" v-model="filter.column">
+                            <option value="all">All Column</option>
+                            <option value="site_id">Site ID</option>
+                            <option value="site_name">Site Name</option>
+                            <option value="lokasi">Site Location</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="three wide field">
                     <label for="">Operator</label>
                     <div class="field">
                         <select @change="doFilter()" v-model="filter.operator">
-                            <option value="equal_to">Equal to (=)</option>
                             <option value="contains">Contains (%)</option>
+                            <option value="equal_to">Equal to (=)</option>
                         </select>
                     </div>
                 </div>
                 <div class="field" style="width:100%">
-                    <label for="">Site ID</label>
+                    <label for="">Keyword</label>
                     <input v-on:keyup="doFilter()" type="text" v-model="filter.globalSearch" placeholder="Type here to find">
                 </div>
             </div>
@@ -174,15 +193,18 @@
                 </tr>
             </thead>
             <tbody v-if="!loading">
+                <tr v-if="notFoundMessage">
+                    <td colspan="5" style="text-align:center">Data not found</td>
+                </tr>
                 <tr v-for="site in sites" :key="site.id">
                     <td class="collapsing">
                         <div class="ui fitted checkbox">
                             <input type="checkbox" @change="updateCheckList(site.id)" :checked="!!checkedData.includes(site.id)"> <label></label>
                         </div>
                     </td>
-                    <td>{{ site.site_id | highlight(filter.globalSearch) }}</td>
-                    <td>{{ site.site_name | highlight(filter.globalSearch) }}</td>
-                    <td>{{ site.lokasi | highlight(filter.globalSearch) }}</td>
+                    <td v-html="highlight(site.site_id, filter.globalSearch)"></td>
+                    <td v-html="highlight(site.site_name, filter.globalSearch)"></td>
+                    <td v-html="highlight(site.lokasi, filter.globalSearch)"></td>
                     <td class="center aligned">
                         <b-button @click="viewModal(site.id)" class="ui detail primary basic button">Detail</b-button>
                         <div class="ui buttons">
@@ -320,9 +342,10 @@
                     description: '',
                 },
                 filter: {
-                    operator: 'equal_to',
+                    operator: 'contains',
                     site_id: '',
-                    globalSearch: ''
+                    globalSearch: '',
+                    column: 'all'
                 },
                 filters: [
                     {column: 'site_id', operator: 'contains', query_1: ''},
@@ -350,15 +373,12 @@
                     site_id: false,
                     site_name: false,
                     lokasi: false,
-                }
+                },
+                notFoundMessage: false,
             }
         },
         watch: {
-            filter: {
-                site_name(after, before) {
-                    this.fetchSites()
-                }
-            }
+
         },
         validations: {
             site: {
@@ -434,13 +454,22 @@
                             // 'f[0][column]': 'site_id',
                             // 'f[0][operator]': this.filter.operator,
                             // 'f[0][query_1]': this.filter.site_id,
-                            'f[0][any]': this.filter.globalSearch
+                            'f[0][any]': this.filter.globalSearch,
+                            'f[0][operator]': this.filter.operator,
+                            'f[0][column]': this.filter.column != 'all' ? this.filter.column : 'all'
                         }
                     })
                     .then(res => {
-                        this.sites = []
-                        this.sites = res.data.data
-                        this.makePagination(res.data.meta, res.data.links)
+                        if(res.data.data.length > 0) {
+                            this.notFoundMessage = false
+                            this.sites = []
+                            this.sites = res.data.data
+                            this.makePagination(res.data.meta, res.data.links)
+                        } else {
+                            this.sites = []
+                            this.notFoundMessage = true
+                            this.makePagination(res.data.meta, res.data.links)
+                        }
                         this.loading = false
                     })
                     .catch(err => {
@@ -448,6 +477,7 @@
                     })
                 } else {
                     this.fetchSites()
+                    this.notFoundMessage = false
                 }
             },
             advancedFilter() {
@@ -720,23 +750,26 @@
                 .catch(err => {
                     console.log(err)
                 })
+            },
+            highlight(word, query) {
+                var iQuery = new RegExp(query, 'ig')
+                return word.toString().replace(iQuery, function(matchedText, a, b) {
+                    return ('<span class=\'highlightedSearch\'>' + matchedText + '</span>')
+                })
             }
         },
         components: {
             siteData: Data
         },
         filters: {
-            highlight(word, query) {
-                var iQuery = new RegExp(query, 'ig')
-                return word.toString().replace(query, function(matchedText, a, b) {
-                    return ('<span style="color:#ff0000">' + matchedText + '</span>')
-                })
-            }
         }
     }
 
 </script>
 
-<style>
-
+<style scopedSlots>
+    .highlightedSearch {
+        font-weight: bold;
+        background-color: yellow;
+    }
 </style>

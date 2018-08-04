@@ -16,12 +16,7 @@ class SiteQueryBuilder {
     }
 
     protected function makeFilter($query, $filter) {
-        if(isset($filter['operator'])) {
-            $this->{
-                camel_case($filter['operator'])
-            }($filter, $query);
-        }
-        $this->searchAny($filter, $query);
+        $this->{camel_case($filter['operator'])}($filter, $query);
     }
 
     public function searchAny($filter, $query) {
@@ -35,11 +30,34 @@ class SiteQueryBuilder {
     }
 
     public function contains($filter, $query) {
-        return $query->where($filter['column'], 'like', '%'. $filter['query_1'] .'%', $filter['match']);
+        $q = $query->where(
+                        ($filter['column'] != 'all' ? $filter['column'] : 'site_id'), 
+                        'like', 
+                        '%'. (isset($filter['query_1']) ? $filter['query_1'] : $filter['any']) .'%'
+                    );
+        if(isset($filter['any']) && $filter['column'] == 'all') {
+            $q = $query ->orWhere('site_type', 'like', '%' . $filter['any'] . '%')
+                        ->orWhere('site_name', 'like', '%' . $filter['any'] . '%')
+                        ->orWhere('lokasi', 'like', '%' . $filter['any'] . '%')
+                        ->orWhere('description', 'like', '%' . $filter['any'] . '%');
+        }
+        return $q;
     }
 
     public function equalTo($filter, $query) {
-        return $query->where($filter['column'], '=', $filter['query_1'], $filter['match']);
+        $q = $query->where(
+                        ($filter['column'] != 'all' ? $filter['column'] : 'site_id'), 
+                        '=', 
+                        (isset($filter['query_1']) ? $filter['query_1'] : $filter['any'])
+                    );
+        if(isset($filter['any']) && $filter['column'] == 'all') {
+            $q = $query ->orWhere('site_type', '=', $filter['any'])
+                        ->orWhere('site_name', '=', $filter['any'])
+                        ->orWhere('lokasi', '=', $filter['any'])
+                        ->orWhere('description', '=', $filter['any'])
+                        ;
+        }
+        return $q;
     }
 
 }

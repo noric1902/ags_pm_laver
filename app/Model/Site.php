@@ -23,7 +23,7 @@ class Site extends Model
     }
     
     protected $allowedFilters = [
-        'id', 'site_id', 'site_name', 'lokasi'
+        'all', 'id', 'site_id', 'site_name', 'lokasi'
     ];
     
     protected $orderable = [
